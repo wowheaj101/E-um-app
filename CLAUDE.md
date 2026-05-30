@@ -115,7 +115,11 @@ Supabase(PostgREST/RLS)·Gemini·JWT·AES 로 동작한다. 외부 연동은 SDK
 
 ## 비밀정보 취급
 
-`.env`(Supabase/Gemini 실제 키), `DBpw.md`(DB 비밀번호), `.claude/settings.local.json`(권한
-허용 목록에 접속 문자열이 평문으로 기록될 수 있음)은 모두 `.gitignore`로 제외된다. 커밋 전
-스테이징 diff에 연결 문자열·키·비밀번호가 없는지 확인한다. `.env.example`은 템플릿이므로
-커밋 대상이다. (`.env` 에는 anon/service_role/JWT secret/Gemini 키가 들어가므로 절대 커밋 금지.)
+모든 비밀은 **`backend/.env` 단일 파일**에 모은다(Supabase URL/키, JWT secret, `SUPABASE_DB_URL`,
+Gemini 키, AES 키). `.env`와 `.claude/settings.local.json`(권한 허용 목록에 접속 문자열이 평문으로
+기록될 수 있음)은 `.gitignore`로 제외된다. 커밋 전 스테이징 diff에 연결 문자열·키·비밀번호가
+없는지 확인한다. `.env.example`은 템플릿(빈 값)이므로 커밋 대상이다.
+
+팀 공유·온보딩 절차와 키별 주의사항(anon은 공개 가능 / service_role·JWT·Gemini는 서버 전용 /
+`LEGACY_ENCRYPTION_KEY`는 환경 간 동일 유지)은 `CONTRIBUTING.md`를 따른다. 실제 키는 git이
+아니라 팀 공유 볼트로 전달하며, 노출 시 즉시 회전(rotate)한다.

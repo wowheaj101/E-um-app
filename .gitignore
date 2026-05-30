@@ -1,9 +1,10 @@
 # --- 비밀정보 (절대 커밋 금지) ---
-DBpw.md
 .env
 .env.*
 *.env
 supabase/.env
+# 레거시 안전망: DB 비밀번호는 이제 .env(SUPABASE_DB_URL)로 통합됨. 재생성 차단용으로 유지.
+DBpw.md
 # 로컬 권한 설정 — 접속 문자열/비밀번호 포함 가능
 .claude/settings.local.json
 
