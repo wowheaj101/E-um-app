@@ -8,6 +8,7 @@ from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from ..schemas import ApiResponse
+from .errors import AppError
 
 _STATUS_CODE = {
     400: "BAD_REQUEST",
@@ -27,6 +28,11 @@ def ok(data=None) -> ApiResponse:
 
 def _error_body(code: str, message: str) -> dict:
     return {"success": False, "data": None, "error": {"code": code, "message": message}}
+
+
+async def app_error_handler(request: Request, exc: AppError) -> JSONResponse:
+    """AppError(ConfigError/SupabaseError/GeminiError)를 공통 래퍼로 직렬화."""
+    return JSONResponse(status_code=exc.status_code, content=_error_body(exc.code, exc.message))
 
 
 async def http_exception_handler(request: Request, exc: StarletteHTTPException) -> JSONResponse:

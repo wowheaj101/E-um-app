@@ -16,10 +16,13 @@ Gemini·Tesseract.js·Web Speech(무료 AI 구성).
 순서를 정의한다. 진행 상태:
 
 1. ✅ Supabase DB 스키마 + RLS (`supabase/`)
-2. ✅ FastAPI API 스펙 — 응답 형식 확정, **mock 응답 단계** (`backend/`)
+2. ✅ FastAPI API 스펙 — 응답 형식 확정 (`backend/`)
 3. ⬜ 디자인 시스템 + Vue3 컴포넌트 mock 개발 (아직 프론트 코드 없음)
-4. ⬜ 백엔드 실제 구현 (AI 연동) — `backend/`의 `# TODO(4단계)` 지점을 채운다
+4. ✅ **백엔드 실제 구현 완료** — 모든 `# TODO(4단계)` 제거. Supabase(PostgREST/RLS)
+   조회·Gemini 파싱·JWT 검증·AES 암호화 구현 및 실제 자격증명으로 라이브 검증 완료.
 5. ⬜ 프론트 ↔ 백엔드 실연동  6. ⬜ 모바일 기기 테스트(iOS STT 필수)
+
+> 4단계를 3단계(프론트 mock)보다 먼저 완성했다. 프론트는 확정된 OpenAPI 스펙으로 병렬 진행 가능.
 
 ## 자주 쓰는 명령
 
@@ -32,9 +35,13 @@ cd backend
 pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 
-# API 스모크 테스트 — 서버 없이 TestClient로 전체 엔드포인트 검증
+# 오프라인 스모크 — 서버/자격증명 없이 부팅·라우팅·응답래퍼·JWT·암호화 검증
 cd backend
 $env:PYTHONIOENCODING="utf-8"; python smoke_test.py
+
+# 라이브 통합 — 실제 Supabase + Gemini 연동 검증 (.env 채움 + 사용자 토큰 필요)
+$env:PYTHONIOENCODING="utf-8"; $env:TEST_ACCESS_TOKEN="<supabase access_token>"
+python integration_test.py
 
 # DB 마이그레이션 적용 + 검증 (psycopg2-binary 필요)
 $env:SUPABASE_DB_URL="postgresql://...";  $env:PYTHONIOENCODING="utf-8"
@@ -42,7 +49,8 @@ python supabase/setup_db.py              # 적용 후 검증
 python supabase/setup_db.py --verify-only # 적용 없이 검증만
 ```
 
-테스트 러너(pytest 등)는 아직 없다. `smoke_test.py`가 유일한 테스트이며 단일 스크립트로 실행한다.
+테스트 러너(pytest 등)는 아직 없다. 테스트는 두 단일 스크립트다: `smoke_test.py`(오프라인,
+자격증명 불필요)와 `integration_test.py`(라이브, `.env` + `TEST_ACCESS_TOKEN` 필요).
 
 ### Supabase 접속 제약 (중요)
 
@@ -73,25 +81,41 @@ python supabase/setup_db.py --verify-only # 적용 없이 검증만
 
 ### 백엔드 (`backend/app/`)
 
-FastAPI, 라우터는 `/api/v1` 프리픽스로 마운트. 현재는 **스펙+mock 단계**로, 비즈니스 로직은
-`# TODO(4단계)` 주석으로 표시된 자리표시자다. 4단계에서 Supabase 조회·Gemini 파싱·JWT
-검증·AES 암호화로 이 지점들을 교체한다.
+FastAPI, 라우터는 `/api/v1` 프리픽스로 마운트. **4단계 실제 구현 완료** — 모든 도메인 로직이
+Supabase(PostgREST/RLS)·Gemini·JWT·AES 로 동작한다. 외부 연동은 SDK 없이 **`httpx` 로만**
+호출한다(supabase-py / google-generativeai 미사용 → 의존성 최소화).
+
+핵심 설계: 사용자 access token 을 PostgREST 호출에 그대로 전달해 **DB RLS 가 적용**된다.
+즉 조력자의 수정·삭제 차단 등 권한은 애플리케이션 if 문이 아니라 DB 정책이 보장한다.
+이메일 조회·시스템 잠금 기록처럼 RLS 우회가 꼭 필요한 경우에만 `service_role`(admin 스코프)을 쓴다.
 
 - `schemas.py` — **API 계약의 단일 출처**. 모든 요청/응답 Pydantic 모델. DB 컬럼 및 프론트
   `types/asset.ts`와 **1:1 매핑**, 필드는 snake_case, enum 값은 DB의 CHECK 제약과 동일.
   스키마를 바꾸면 DB·프론트 타입과의 정합성을 함께 확인한다.
-- `core/responses.py` — 모든 응답을 공통 래퍼 `{success, data, error}`로 통일. 성공은
-  `ok(data)` 헬퍼, 오류는 `HTTPException`/검증오류를 예외 핸들러가 동일 형식으로 직렬화
-  (`main.py`에서 등록). 라우터에서 직접 에러 JSON을 만들지 말고 `HTTPException`을 던진다.
-- `deps.py` — 인증 의존성 `get_current_user`. **현재는 Bearer 토큰 '존재'만 확인하고
-  `MOCK_SENIOR`를 반환**한다(JWT 미검증). 인증 필요한 엔드포인트는 이 의존성을 주입한다.
+- `core/config.py` — `pydantic-settings` 기반 `.env` 로드. Supabase URL/키, Gemini 키·모델,
+  AES 키. `supabase_configured` 등 파생 속성과 REST/Auth URL 헬퍼 제공.
+- `core/responses.py` + `core/errors.py` — 모든 응답을 공통 래퍼 `{success, data, error}`로
+  통일. 성공은 `ok(data)`. 오류는 `HTTPException` 또는 `AppError` 하위(`ConfigError`=503,
+  `SupabaseError`=502, `GeminiError`=502)를 던지면 예외 핸들러가 동일 형식으로 직렬화한다
+  (`main.py`에서 등록). 라우터에서 직접 에러 JSON을 만들지 말 것.
+- `core/http_client.py` — 공유 `httpx.AsyncClient` 싱글톤(커넥션 재사용). 이벤트 루프가
+  바뀌면 자동 재생성한다(TestClient 다중요청 안전). `main.py` lifespan 이 종료 시 정리.
+- `core/security.py` — Supabase JWT(HS256, `SUPABASE_JWT_SECRET`) 로컬 검증 + 디지털 유산
+  AES(Fernet) 암복호화. 키가 Fernet 형식이 아니면 SHA-256 으로 유도한다.
+- `core/supabase.py` — PostgREST REST 호출 레이어. `select/insert/update/delete` + `token`
+  (사용자 스코프, RLS 적용) / `admin=True`(service_role, RLS 우회) 구분. PostgREST 필터
+  문법을 그대로 쓴다(`{"id": "eq.<uuid>"}`, bool 은 `is.true`).
+- `core/gemini.py` — Gemini REST(`generateContent`). `responseSchema` 로 구조화 JSON 강제.
+  `parse_assets`(음성 텍스트→자산 후보), `ocr_assets`(이미지→Vision OCR). 모델은
+  `gemini-2.5-flash`(2.0-flash 는 무료 티어 limit:0 → 429).
+- `deps.py` — 인증 의존성 `get_current_principal`. Bearer 토큰을 JWT 검증 후 `public.users`
+  를 조회해 `Principal`(프로필 `user` + RLS 호출용 `token`)을 주입한다. 라우터는
+  `current.id`/`current.role`/`current.token`을 쓴다. (구 `MOCK_SENIOR` 제거됨.)
 - `api/` — 도메인별 `APIRouter`(prefix+tags), `api/__init__.py`의 `api_router`로 집약.
-  라우터 간 mock 데이터는 `api/assets.py`의 `_MOCK_ASSETS`/`_SENIOR_ID`를 공유 참조한다.
-- `core/config.py` — `pydantic-settings` 기반 `.env` 로드. Supabase/Gemini 키는 4단계용으로
-  선언만 되어 있고 현재 미사용.
 
 ## 비밀정보 취급
 
-`DBpw.md`(DB 비밀번호 보관)와 `.claude/settings.local.json`(권한 허용 목록에 접속 문자열이
-평문으로 기록될 수 있음)은 `.gitignore`로 제외되어 있다. 커밋 전 스테이징 diff에 연결 문자열·
-비밀번호가 없는지 확인한다. `.env.example`은 템플릿이므로 커밋 대상이다.
+`.env`(Supabase/Gemini 실제 키), `DBpw.md`(DB 비밀번호), `.claude/settings.local.json`(권한
+허용 목록에 접속 문자열이 평문으로 기록될 수 있음)은 모두 `.gitignore`로 제외된다. 커밋 전
+스테이징 diff에 연결 문자열·키·비밀번호가 없는지 확인한다. `.env.example`은 템플릿이므로
+커밋 대상이다. (`.env` 에는 anon/service_role/JWT secret/Gemini 키가 들어가므로 절대 커밋 금지.)

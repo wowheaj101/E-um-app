@@ -1,5 +1,4 @@
 # 이음(E-UM) Backend — FastAPI
-# 2단계(API 스펙) 실행에 필요한 최소 의존성
 
 fastapi>=0.115
 uvicorn[standard]>=0.30
@@ -8,8 +7,10 @@ pydantic-settings>=2.3
 python-multipart>=0.0.9   # /assets/ocr 멀티파트 업로드
 email-validator>=2.1      # Pydantic EmailStr
 
-# --- 4단계(실제 구현) 추가 예정 ---
-# supabase>=2.6           # Supabase 클라이언트 (DB/Auth)
-# google-generativeai     # Gemini (음성/OCR 텍스트 파싱)
-# pyjwt[crypto]           # Supabase JWT 검증
-# cryptography            # 디지털 유산 AES 암호화
+# --- 4단계(실제 구현) ---
+httpx>=0.27               # Supabase PostgREST / Gemini REST 호출
+PyJWT>=2.8                # Supabase JWT(HS256) 로컬 검증
+cryptography>=42          # 디지털 유산 AES(Fernet) 암호화
+
+# Supabase 는 PostgREST/GoTrue REST 를 httpx 로 직접 호출하므로 supabase-py 불필요.
+# Gemini 도 REST 호출이라 google-generativeai SDK 불필요.
