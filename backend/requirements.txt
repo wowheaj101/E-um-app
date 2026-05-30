@@ -1,0 +1,15 @@
+# 이음(E-UM) Backend — FastAPI
+# 2단계(API 스펙) 실행에 필요한 최소 의존성
+
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic>=2.7
+pydantic-settings>=2.3
+python-multipart>=0.0.9   # /assets/ocr 멀티파트 업로드
+email-validator>=2.1      # Pydantic EmailStr
+
+# --- 4단계(실제 구현) 추가 예정 ---
+# supabase>=2.6           # Supabase 클라이언트 (DB/Auth)
+# google-generativeai     # Gemini (음성/OCR 텍스트 파싱)
+# pyjwt[crypto]           # Supabase JWT 검증
+# cryptography            # 디지털 유산 AES 암호화
