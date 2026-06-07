@@ -1,0 +1,2389 @@
+/* @ds-bundle: {"format":3,"namespace":"WantedDesignSystem_3ed5bb","components":[{"name":"Avatar","sourcePath":"components/core/Avatar.jsx"},{"name":"Badge","sourcePath":"components/core/Badge.jsx"},{"name":"Button","sourcePath":"components/core/Button.jsx"},{"name":"Chip","sourcePath":"components/core/Chip.jsx"},{"name":"ContentBadge","sourcePath":"components/core/ContentBadge.jsx"},{"name":"IconButton","sourcePath":"components/core/IconButton.jsx"},{"name":"Card","sourcePath":"components/display/Card.jsx"},{"name":"ListCell","sourcePath":"components/display/ListCell.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"Radio","sourcePath":"components/forms/Radio.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"},{"name":"TextField","sourcePath":"components/forms/TextField.jsx"},{"name":"ICON_NAMES","sourcePath":"components/icons/Icon.jsx"},{"name":"Icon","sourcePath":"components/icons/Icon.jsx"},{"name":"SegmentedControl","sourcePath":"components/navigation/SegmentedControl.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"}],"sourceHashes":{"components/core/Avatar.jsx":"4b6d484b6796","components/core/Badge.jsx":"773de2b5e9f6","components/core/Button.jsx":"6fc877c4f932","components/core/Chip.jsx":"058eb6883a38","components/core/ContentBadge.jsx":"caacd771b75e","components/core/IconButton.jsx":"7dd2288ec9ae","components/display/Card.jsx":"6f1cb9174303","components/display/ListCell.jsx":"2cce10516aa1","components/feedback/Toast.jsx":"9a126102fc7e","components/forms/Checkbox.jsx":"836683a4901a","components/forms/Radio.jsx":"c22939dd49d7","components/forms/Switch.jsx":"fa484802d2d8","components/forms/TextField.jsx":"409d9d05b121","components/icons/Icon.jsx":"6ac341666a9f","components/navigation/SegmentedControl.jsx":"5647139f8fe1","components/navigation/Tabs.jsx":"d17b584ccf58","ui_kits/wanted/HomeScreen.jsx":"15b43415ff46","ui_kits/wanted/JobCard.jsx":"3817aa36e22a","ui_kits/wanted/JobDetailScreen.jsx":"874d9af5b173","ui_kits/wanted/TopBar.jsx":"81333e1417ea","ui_kits/wanted/data.js":"8dc97d5117cd"},"inlinedExternals":[],"unexposedExports":[]} */
+
+(() => {
+
+const __ds_ns = (window.WantedDesignSystem_3ed5bb = window.WantedDesignSystem_3ed5bb || {});
+
+const __ds_scope = {};
+
+(__ds_ns.__errors = __ds_ns.__errors || []);
+
+// components/core/Avatar.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/* Avatar — company logo (rounded square) or person (circle).
+   Falls back to an initial on a tinted fill when no image is given. */
+
+const SIZES = {
+  xl: 64,
+  lg: 48,
+  md: 40,
+  sm: 32,
+  xs: 24
+};
+function Avatar({
+  src,
+  alt = "",
+  name = "",
+  shape = "rounded",
+  size = "md",
+  style,
+  ...rest
+}) {
+  const px = typeof size === "number" ? size : SIZES[size] || SIZES.md;
+  const radius = shape === "circle" ? "var(--radius-full)" : Math.round(px * 0.28);
+  const initial = (name || alt || "").trim().charAt(0).toUpperCase();
+  return /*#__PURE__*/React.createElement("span", _extends({
+    style: {
+      boxSizing: "border-box",
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      width: px,
+      height: px,
+      borderRadius: radius,
+      overflow: "hidden",
+      background: "var(--fill-normal)",
+      color: "var(--label-alternative)",
+      fontFamily: "var(--font-sans)",
+      fontSize: Math.round(px * 0.42),
+      fontWeight: 600,
+      flexShrink: 0,
+      boxShadow: "inset 0 0 0 1px var(--line-alternative)",
+      ...style
+    }
+  }, rest), src ? /*#__PURE__*/React.createElement("img", {
+    src: src,
+    alt: alt,
+    style: {
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      display: "block"
+    }
+  }) : initial || null);
+}
+Object.assign(__ds_scope, { Avatar });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/Avatar.jsx", error: String((e && e.message) || e) }); }
+
+// components/core/Badge.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/* Badge — notification dot or count, usually pinned to an icon/avatar.
+   `dot` renders a bare indicator; otherwise it shows the (capped) count. */
+
+function Badge({
+  count,
+  max = 99,
+  dot = false,
+  tone = "negative",
+  style,
+  ...rest
+}) {
+  const bg = {
+    negative: "var(--status-negative)",
+    primary: "var(--primary-normal)",
+    neutral: "var(--label-normal)"
+  }[tone] || "var(--status-negative)";
+  if (dot) {
+    return /*#__PURE__*/React.createElement("span", _extends({
+      style: {
+        display: "inline-block",
+        width: 8,
+        height: 8,
+        borderRadius: "var(--radius-full)",
+        background: bg,
+        boxShadow: "0 0 0 2px var(--background-normal)",
+        ...style
+      }
+    }, rest));
+  }
+  const label = typeof count === "number" && count > max ? `${max}+` : count;
+  return /*#__PURE__*/React.createElement("span", _extends({
+    style: {
+      boxSizing: "border-box",
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: 18,
+      height: 18,
+      padding: "0 5px",
+      fontFamily: "var(--font-sans)",
+      fontSize: 11,
+      fontWeight: 700,
+      lineHeight: 1,
+      color: "var(--static-white)",
+      background: bg,
+      borderRadius: "var(--radius-full)",
+      boxShadow: "0 0 0 2px var(--background-normal)",
+      ...style
+    }
+  }, rest), label);
+}
+Object.assign(__ds_scope, { Badge });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/Badge.jsx", error: String((e && e.message) || e) }); }
+
+// components/core/Button.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+const {
+  useState
+} = React;
+/* Wanted Button.
+   Tokens drive every color; sizes mirror the Figma Button spec
+   (lg 48 / md 40 / sm 32 px tall). Hover & press states darken via
+   token swaps held in component state, so the component is fully
+   self-contained (no global CSS needed). */
+const SIZES = {
+  lg: {
+    padV: 12,
+    padH: 28,
+    font: 16,
+    weight: 700,
+    line: 24,
+    radius: 12,
+    gap: 6,
+    icon: 20,
+    track: "0.006em"
+  },
+  md: {
+    padV: 9,
+    padH: 20,
+    font: 15,
+    weight: 700,
+    line: 22,
+    radius: 10,
+    gap: 5,
+    icon: 18,
+    track: "0.010em"
+  },
+  sm: {
+    padV: 7,
+    padH: 14,
+    font: 13,
+    weight: 700,
+    line: 18,
+    radius: 8,
+    gap: 4,
+    icon: 16,
+    track: "0.019em"
+  }
+};
+function resolve(variant, tone, state) {
+  // returns { bg, fg, border }
+  const toneColor = {
+    primary: {
+      normal: "var(--primary-normal)",
+      strong: "var(--primary-strong)",
+      heavy: "var(--primary-heavy)",
+      tint: "var(--primary-tint)",
+      fg: "var(--primary-normal)"
+    },
+    neutral: {
+      normal: "var(--label-normal)",
+      strong: "#000",
+      heavy: "#000",
+      tint: "var(--fill-normal)",
+      fg: "var(--label-normal)"
+    },
+    negative: {
+      normal: "var(--status-negative)",
+      strong: "var(--red-40)",
+      heavy: "var(--red-30)",
+      tint: "var(--status-negative-bg)",
+      fg: "var(--status-negative)"
+    }
+  }[tone];
+  if (variant === "solid") {
+    const bg = state === "press" ? toneColor.heavy : state === "hover" ? toneColor.strong : toneColor.normal;
+    return {
+      bg,
+      fg: "var(--static-white)",
+      border: "transparent"
+    };
+  }
+  if (variant === "weak") {
+    const fill = state === "normal" ? toneColor.tint : "color-mix(in srgb, " + toneColor.normal + " " + (state === "press" ? "22%" : "14%") + ", transparent)";
+    return {
+      bg: fill,
+      fg: toneColor.fg,
+      border: "transparent"
+    };
+  }
+  if (variant === "outline") {
+    const bg = state === "normal" ? "transparent" : state === "press" ? "var(--fill-strong)" : "var(--fill-normal)";
+    return {
+      bg,
+      fg: toneColor.fg,
+      border: "var(--line-normal)"
+    };
+  }
+  // text
+  const bg = state === "normal" ? "transparent" : state === "press" ? "var(--fill-strong)" : "var(--fill-normal)";
+  return {
+    bg,
+    fg: toneColor.fg,
+    border: "transparent"
+  };
+}
+function Button({
+  children,
+  variant = "solid",
+  tone = "primary",
+  size = "md",
+  leadingIcon,
+  trailingIcon,
+  disabled = false,
+  fullWidth = false,
+  type = "button",
+  style,
+  onClick,
+  ...rest
+}) {
+  const [hover, setHover] = useState(false);
+  const [press, setPress] = useState(false);
+  const sz = SIZES[size] || SIZES.md;
+  const state = press ? "press" : hover ? "hover" : "normal";
+  const c = disabled ? {
+    bg: variant === "solid" ? "var(--interaction-disable)" : "transparent",
+    fg: "var(--label-disable)",
+    border: variant === "outline" ? "var(--line-neutral)" : "transparent"
+  } : resolve(variant, tone, state);
+  return /*#__PURE__*/React.createElement("button", _extends({
+    type: type,
+    disabled: disabled,
+    onClick: onClick,
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => {
+      setHover(false);
+      setPress(false);
+    },
+    onMouseDown: () => setPress(true),
+    onMouseUp: () => setPress(false),
+    style: {
+      appearance: "none",
+      boxSizing: "border-box",
+      display: fullWidth ? "flex" : "inline-flex",
+      width: fullWidth ? "100%" : "auto",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: sz.gap,
+      padding: `${sz.padV}px ${sz.padH}px`,
+      fontFamily: "var(--font-sans)",
+      fontSize: sz.font,
+      fontWeight: sz.weight,
+      lineHeight: `${sz.line}px`,
+      letterSpacing: sz.track,
+      color: c.fg,
+      background: c.bg,
+      border: "none",
+      boxShadow: c.border === "transparent" ? "none" : `inset 0 0 0 1px ${c.border}`,
+      borderRadius: sz.radius,
+      cursor: disabled ? "not-allowed" : "pointer",
+      transition: "background var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard)",
+      userSelect: "none",
+      whiteSpace: "nowrap",
+      ...style
+    }
+  }, rest), leadingIcon ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "inline-flex",
+      width: sz.icon,
+      height: sz.icon
+    }
+  }, leadingIcon) : null, children != null ? /*#__PURE__*/React.createElement("span", null, children) : null, trailingIcon ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "inline-flex",
+      width: sz.icon,
+      height: sz.icon
+    }
+  }, trailingIcon) : null);
+}
+Object.assign(__ds_scope, { Button });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/Button.jsx", error: String((e && e.message) || e) }); }
+
+// components/core/Chip.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+const {
+  useState
+} = React;
+/* Wanted Chip — a selectable filter / choice token.
+   Default state is a hairline outline; selected fills with a faint
+   primary tint and a primary hairline + primary text. */
+const SIZES = {
+  lg: {
+    padV: 9,
+    padH: 12,
+    font: 15,
+    line: 22,
+    radius: 10,
+    gap: 3,
+    icon: 16
+  },
+  md: {
+    padV: 7,
+    padH: 11,
+    font: 15,
+    line: 22,
+    radius: 10,
+    gap: 3,
+    icon: 16
+  },
+  sm: {
+    padV: 6,
+    padH: 8,
+    font: 14,
+    line: 20,
+    radius: 8,
+    gap: 2,
+    icon: 14
+  },
+  xs: {
+    padV: 4,
+    padH: 7,
+    font: 12,
+    line: 16,
+    radius: 6,
+    gap: 2,
+    icon: 12
+  }
+};
+function Chip({
+  children,
+  size = "sm",
+  selected = false,
+  disabled = false,
+  leadingIcon,
+  trailingIcon,
+  onClick,
+  style,
+  ...rest
+}) {
+  const [hover, setHover] = useState(false);
+  const sz = SIZES[size] || SIZES.sm;
+  let bg = "transparent";
+  let border = "var(--line-neutral)";
+  let fg = "var(--label-alternative)";
+  let weight = 500;
+  if (disabled) {
+    fg = "var(--label-disable)";
+    border = "var(--line-neutral)";
+  } else if (selected) {
+    bg = "var(--primary-tint)";
+    border = "color-mix(in srgb, var(--primary-normal) 43%, transparent)";
+    fg = "var(--primary-normal)";
+    weight = 600;
+    if (hover) bg = "color-mix(in srgb, var(--primary-normal) 10%, transparent)";
+  } else if (hover) {
+    bg = "var(--fill-normal)";
+  }
+  return /*#__PURE__*/React.createElement("button", _extends({
+    type: "button",
+    disabled: disabled,
+    "aria-pressed": selected,
+    onClick: onClick,
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => setHover(false),
+    style: {
+      appearance: "none",
+      boxSizing: "border-box",
+      display: "inline-flex",
+      alignItems: "center",
+      gap: sz.gap,
+      padding: `${sz.padV}px ${sz.padH}px`,
+      fontFamily: "var(--font-sans)",
+      fontSize: sz.font,
+      fontWeight: weight,
+      lineHeight: `${sz.line}px`,
+      color: fg,
+      background: bg,
+      border: "none",
+      boxShadow: `inset 0 0 0 1px ${border}`,
+      borderRadius: sz.radius,
+      cursor: disabled ? "not-allowed" : "pointer",
+      transition: "background var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard)",
+      whiteSpace: "nowrap",
+      ...style
+    }
+  }, rest), leadingIcon ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "inline-flex",
+      width: sz.icon,
+      height: sz.icon,
+      padding: "1px 0"
+    }
+  }, leadingIcon) : null, /*#__PURE__*/React.createElement("span", {
+    style: {
+      padding: "0 2px"
+    }
+  }, children), trailingIcon ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "inline-flex",
+      width: sz.icon,
+      height: sz.icon,
+      padding: "1px 0"
+    }
+  }, trailingIcon) : null);
+}
+Object.assign(__ds_scope, { Chip });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/Chip.jsx", error: String((e && e.message) || e) }); }
+
+// components/core/ContentBadge.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/* ContentBadge — a small categorical label ("신입", "정규직", "D-7").
+   `tone` picks an accent hue; `variant` chooses tinted vs solid fill.
+   Neutral tone uses the grey fill system. */
+
+const SIZES = {
+  md: {
+    padV: 3,
+    padH: 8,
+    font: 13,
+    line: 18,
+    radius: 6
+  },
+  sm: {
+    padV: 2,
+    padH: 6,
+    font: 12,
+    line: 16,
+    radius: 5
+  }
+};
+const TONES = ["blue", "violet", "green", "red", "orange", "cyan", "pink", "neutral"];
+function ContentBadge({
+  children,
+  tone = "blue",
+  variant = "weak",
+  size = "sm",
+  style,
+  ...rest
+}) {
+  const sz = SIZES[size] || SIZES.sm;
+  let bg, fg;
+  if (tone === "neutral") {
+    bg = variant === "solid" ? "var(--label-normal)" : "var(--fill-normal)";
+    fg = variant === "solid" ? "var(--static-white)" : "var(--label-alternative)";
+  } else {
+    const hue = TONES.includes(tone) ? tone : "blue";
+    if (variant === "solid") {
+      bg = `var(--accent-foreground-${hue})`;
+      fg = "var(--static-white)";
+    } else {
+      bg = `var(--accent-background-${hue})`;
+      fg = `var(--accent-foreground-${hue})`;
+    }
+  }
+  return /*#__PURE__*/React.createElement("span", _extends({
+    style: {
+      boxSizing: "border-box",
+      display: "inline-flex",
+      alignItems: "center",
+      padding: `${sz.padV}px ${sz.padH}px`,
+      fontFamily: "var(--font-sans)",
+      fontSize: sz.font,
+      fontWeight: 600,
+      lineHeight: `${sz.line}px`,
+      letterSpacing: "0.01em",
+      color: fg,
+      background: bg,
+      borderRadius: sz.radius,
+      whiteSpace: "nowrap",
+      ...style
+    }
+  }, rest), children);
+}
+Object.assign(__ds_scope, { ContentBadge });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/ContentBadge.jsx", error: String((e && e.message) || e) }); }
+
+// components/core/IconButton.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+const {
+  useState
+} = React;
+/* Square icon-only button. Same interaction model as Button.
+   Sizes give a comfortable touch target (lg 48 / md 40 / sm 32). */
+const SIZES = {
+  lg: {
+    box: 48,
+    radius: 12,
+    icon: 24
+  },
+  md: {
+    box: 40,
+    radius: 10,
+    icon: 22
+  },
+  sm: {
+    box: 32,
+    radius: 8,
+    icon: 20
+  }
+};
+function IconButton({
+  icon,
+  variant = "text",
+  tone = "neutral",
+  size = "md",
+  disabled = false,
+  "aria-label": ariaLabel,
+  style,
+  onClick,
+  ...rest
+}) {
+  const [hover, setHover] = useState(false);
+  const [press, setPress] = useState(false);
+  const sz = SIZES[size] || SIZES.md;
+  const state = press ? "press" : hover ? "hover" : "normal";
+  const fg = {
+    primary: "var(--primary-normal)",
+    neutral: "var(--label-neutral)",
+    negative: "var(--status-negative)"
+  }[tone];
+  let bg = "transparent";
+  if (!disabled) {
+    if (variant === "solid") bg = state === "press" ? "var(--primary-heavy)" : state === "hover" ? "var(--primary-strong)" : "var(--primary-normal)";else bg = state === "press" ? "var(--fill-strong)" : state === "hover" ? "var(--fill-normal)" : "transparent";
+  }
+  const color = disabled ? "var(--label-disable)" : variant === "solid" ? "var(--static-white)" : fg;
+  return /*#__PURE__*/React.createElement("button", _extends({
+    type: "button",
+    "aria-label": ariaLabel,
+    disabled: disabled,
+    onClick: onClick,
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => {
+      setHover(false);
+      setPress(false);
+    },
+    onMouseDown: () => setPress(true),
+    onMouseUp: () => setPress(false),
+    style: {
+      appearance: "none",
+      boxSizing: "border-box",
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      width: sz.box,
+      height: sz.box,
+      padding: 0,
+      color,
+      background: bg,
+      border: variant === "outline" ? "none" : "none",
+      boxShadow: variant === "outline" ? "inset 0 0 0 1px var(--line-normal)" : "none",
+      borderRadius: sz.radius,
+      cursor: disabled ? "not-allowed" : "pointer",
+      transition: "background var(--duration-fast) var(--ease-standard)",
+      ...style
+    }
+  }, rest), /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "inline-flex",
+      width: sz.icon,
+      height: sz.icon
+    }
+  }, icon));
+}
+Object.assign(__ds_scope, { IconButton });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/IconButton.jsx", error: String((e && e.message) || e) }); }
+
+// components/display/Card.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/* Card — the base content surface. Wanted cards favor a hairline
+   border over shadow; pass elevation="raised" for a floating card. */
+
+function Card({
+  children,
+  elevation = "flat",
+  padding = 20,
+  radius = 16,
+  interactive = false,
+  as = "div",
+  style,
+  ...rest
+}) {
+  const Tag = as;
+  const shadow = {
+    none: "none",
+    flat: "none",
+    raised: "var(--shadow-card)",
+    floating: "var(--shadow-raised)"
+  }[elevation];
+  const border = elevation === "flat" || elevation === "none" ? "inset 0 0 0 1px var(--line-normal)" : "none";
+  return /*#__PURE__*/React.createElement(Tag, _extends({
+    style: {
+      boxSizing: "border-box",
+      background: "var(--background-elevated)",
+      borderRadius: radius,
+      padding,
+      boxShadow: [border, shadow].filter(s => s && s !== "none").join(", ") || "none",
+      transition: interactive ? "box-shadow var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-standard)" : undefined,
+      cursor: interactive ? "pointer" : undefined,
+      ...style
+    }
+  }, rest), children);
+}
+Object.assign(__ds_scope, { Card });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/display/Card.jsx", error: String((e && e.message) || e) }); }
+
+// components/display/ListCell.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+const {
+  useState
+} = React;
+/* ListCell — a tappable list row: [leading] title / description [trailing].
+   The Wanted workhorse for settings, menus, and resource lists. */
+function ListCell({
+  title,
+  description,
+  leading,
+  trailing,
+  onClick,
+  divider = false,
+  disabled = false,
+  style,
+  ...rest
+}) {
+  const [hover, setHover] = useState(false);
+  const tappable = Boolean(onClick) && !disabled;
+  return /*#__PURE__*/React.createElement("div", _extends({
+    role: tappable ? "button" : undefined,
+    tabIndex: tappable ? 0 : undefined,
+    onClick: tappable ? onClick : undefined,
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => setHover(false),
+    style: {
+      boxSizing: "border-box",
+      display: "flex",
+      alignItems: "center",
+      gap: 12,
+      width: "100%",
+      padding: "14px 4px",
+      background: tappable && hover ? "var(--fill-alternative)" : "transparent",
+      borderRadius: 12,
+      boxShadow: divider ? "inset 0 -1px 0 var(--line-alternative)" : "none",
+      cursor: tappable ? "pointer" : "default",
+      opacity: disabled ? 0.5 : 1,
+      transition: "background var(--duration-fast) var(--ease-standard)",
+      ...style
+    }
+  }, rest), leading ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "inline-flex",
+      flexShrink: 0
+    }
+  }, leading) : null, /*#__PURE__*/React.createElement("span", {
+    style: {
+      flex: 1,
+      minWidth: 0,
+      display: "flex",
+      flexDirection: "column",
+      gap: 2
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-sans)",
+      fontSize: 16,
+      fontWeight: 500,
+      color: "var(--label-normal)",
+      letterSpacing: "0.0057em",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      whiteSpace: "nowrap"
+    }
+  }, title), description != null ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-sans)",
+      fontSize: 13,
+      fontWeight: 500,
+      color: "var(--label-alternative)",
+      letterSpacing: "0.0194em"
+    }
+  }, description) : null), trailing ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "inline-flex",
+      alignItems: "center",
+      flexShrink: 0,
+      color: "var(--label-alternative)"
+    }
+  }, trailing) : null);
+}
+Object.assign(__ds_scope, { ListCell });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/display/ListCell.jsx", error: String((e && e.message) || e) }); }
+
+// components/forms/Checkbox.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+const {
+  useState
+} = React;
+/* Checkbox — square selection control. Controlled when `checked` is
+   provided, otherwise self-manages. Checked state fills with primary
+   and shows a white check. */
+const Check = ({
+  s
+}) => /*#__PURE__*/React.createElement("svg", {
+  width: s,
+  height: s,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  style: {
+    display: "block"
+  }
+}, /*#__PURE__*/React.createElement("path", {
+  d: "M5 12.5l4.4 4.4L19 7.6",
+  stroke: "currentColor",
+  strokeWidth: "2.6",
+  strokeLinecap: "round",
+  strokeLinejoin: "round"
+}));
+function Checkbox({
+  checked,
+  defaultChecked = false,
+  onChange,
+  label,
+  disabled = false,
+  size = "md",
+  style,
+  ...rest
+}) {
+  const isControlled = checked !== undefined;
+  const [internal, setInternal] = useState(defaultChecked);
+  const on = isControlled ? checked : internal;
+  const box = size === "sm" ? 20 : 22;
+  const toggle = () => {
+    if (disabled) return;
+    if (!isControlled) setInternal(!on);
+    onChange && onChange(!on);
+  };
+  return /*#__PURE__*/React.createElement("label", _extends({
+    style: {
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 8,
+      cursor: disabled ? "not-allowed" : "pointer",
+      opacity: disabled ? 0.5 : 1,
+      userSelect: "none",
+      ...style
+    }
+  }, rest), /*#__PURE__*/React.createElement("span", {
+    role: "checkbox",
+    "aria-checked": on,
+    "aria-disabled": disabled || undefined,
+    onClick: toggle,
+    style: {
+      boxSizing: "border-box",
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      width: box,
+      height: box,
+      borderRadius: 6,
+      background: on ? "var(--primary-normal)" : "var(--background-normal)",
+      boxShadow: on ? "none" : "inset 0 0 0 1.5px var(--line-strong)",
+      color: "var(--static-white)",
+      transition: "background var(--duration-fast) var(--ease-standard)",
+      flexShrink: 0
+    }
+  }, on ? /*#__PURE__*/React.createElement(Check, {
+    s: box - 6
+  }) : null), label != null ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-sans)",
+      fontSize: 15,
+      fontWeight: 500,
+      color: "var(--label-normal)",
+      letterSpacing: "0.0096em"
+    }
+  }, label) : null);
+}
+Object.assign(__ds_scope, { Checkbox });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Checkbox.jsx", error: String((e && e.message) || e) }); }
+
+// components/forms/Radio.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+const {
+  useState
+} = React;
+/* Radio — single-select control. Use within a RadioGroup-style row by
+   sharing a `name` and managing the selected value in parent state. */
+function Radio({
+  checked,
+  defaultChecked = false,
+  onChange,
+  label,
+  name,
+  value,
+  disabled = false,
+  size = "md",
+  style,
+  ...rest
+}) {
+  const isControlled = checked !== undefined;
+  const [internal, setInternal] = useState(defaultChecked);
+  const on = isControlled ? checked : internal;
+  const box = size === "sm" ? 20 : 22;
+  const select = () => {
+    if (disabled) return;
+    if (!isControlled) setInternal(true);
+    onChange && onChange(value !== undefined ? value : true);
+  };
+  return /*#__PURE__*/React.createElement("label", _extends({
+    style: {
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 8,
+      cursor: disabled ? "not-allowed" : "pointer",
+      opacity: disabled ? 0.5 : 1,
+      userSelect: "none",
+      ...style
+    }
+  }, rest), /*#__PURE__*/React.createElement("span", {
+    role: "radio",
+    "aria-checked": on,
+    "aria-disabled": disabled || undefined,
+    onClick: select,
+    style: {
+      boxSizing: "border-box",
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      width: box,
+      height: box,
+      borderRadius: "var(--radius-full)",
+      background: "var(--background-normal)",
+      boxShadow: on ? `inset 0 0 0 ${Math.round(box * 0.3)}px var(--primary-normal)` : "inset 0 0 0 1.5px var(--line-strong)",
+      transition: "box-shadow var(--duration-fast) var(--ease-standard)",
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: box * 0.32,
+      height: box * 0.32,
+      borderRadius: "var(--radius-full)",
+      background: on ? "var(--static-white)" : "transparent"
+    }
+  })), label != null ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-sans)",
+      fontSize: 15,
+      fontWeight: 500,
+      color: "var(--label-normal)",
+      letterSpacing: "0.0096em"
+    }
+  }, label) : null);
+}
+Object.assign(__ds_scope, { Radio });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Radio.jsx", error: String((e && e.message) || e) }); }
+
+// components/forms/Switch.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+const {
+  useState
+} = React;
+/* Switch — instant on/off toggle. Track fills primary when on; the
+   knob slides with an emphasized ease. */
+const SIZES = {
+  md: {
+    w: 52,
+    h: 32,
+    knob: 26,
+    pad: 3
+  },
+  sm: {
+    w: 44,
+    h: 26,
+    knob: 21,
+    pad: 2.5
+  }
+};
+function Switch({
+  checked,
+  defaultChecked = false,
+  onChange,
+  disabled = false,
+  size = "md",
+  "aria-label": ariaLabel,
+  style,
+  ...rest
+}) {
+  const isControlled = checked !== undefined;
+  const [internal, setInternal] = useState(defaultChecked);
+  const on = isControlled ? checked : internal;
+  const sz = SIZES[size] || SIZES.md;
+  const toggle = () => {
+    if (disabled) return;
+    if (!isControlled) setInternal(!on);
+    onChange && onChange(!on);
+  };
+  return /*#__PURE__*/React.createElement("button", _extends({
+    type: "button",
+    role: "switch",
+    "aria-checked": on,
+    "aria-label": ariaLabel,
+    disabled: disabled,
+    onClick: toggle,
+    style: {
+      appearance: "none",
+      border: "none",
+      boxSizing: "border-box",
+      position: "relative",
+      width: sz.w,
+      height: sz.h,
+      padding: 0,
+      borderRadius: "var(--radius-full)",
+      background: on ? "var(--primary-normal)" : "var(--cool-neutral-90)",
+      cursor: disabled ? "not-allowed" : "pointer",
+      opacity: disabled ? 0.5 : 1,
+      transition: "background var(--duration-base) var(--ease-standard)",
+      ...style
+    }
+  }, rest), /*#__PURE__*/React.createElement("span", {
+    style: {
+      position: "absolute",
+      top: sz.pad,
+      left: on ? sz.w - sz.knob - sz.pad : sz.pad,
+      width: sz.knob,
+      height: sz.knob,
+      borderRadius: "var(--radius-full)",
+      background: "var(--static-white)",
+      boxShadow: "0 1px 3px rgba(0,0,0,0.18)",
+      transition: "left var(--duration-base) var(--ease-emphasized)"
+    }
+  }));
+}
+Object.assign(__ds_scope, { Switch });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Switch.jsx", error: String((e && e.message) || e) }); }
+
+// components/forms/TextField.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+const {
+  useState
+} = React;
+/* Wanted TextField. Hairline border by default; focus swaps to a
+   primary border + 3px primary ring. Supports leading/trailing
+   adornments, helper text, and an error state. */
+const SIZES = {
+  lg: {
+    h: 52,
+    font: 16,
+    padH: 16,
+    radius: 12
+  },
+  md: {
+    h: 48,
+    font: 15,
+    padH: 14,
+    radius: 12
+  },
+  sm: {
+    h: 40,
+    font: 14,
+    padH: 12,
+    radius: 10
+  }
+};
+function TextField({
+  label,
+  value,
+  defaultValue,
+  placeholder,
+  helper,
+  error,
+  size = "md",
+  leading,
+  trailing,
+  disabled = false,
+  type = "text",
+  onChange,
+  style,
+  id,
+  ...rest
+}) {
+  const [focus, setFocus] = useState(false);
+  const sz = SIZES[size] || SIZES.md;
+  const invalid = Boolean(error);
+  const fieldId = id || (label ? `tf-${Math.random().toString(36).slice(2, 8)}` : undefined);
+  let borderColor = "var(--line-normal)";
+  if (invalid) borderColor = "var(--status-negative)";else if (focus) borderColor = "var(--primary-normal)";
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 6,
+      ...style
+    }
+  }, label ? /*#__PURE__*/React.createElement("label", {
+    htmlFor: fieldId,
+    style: {
+      fontFamily: "var(--font-sans)",
+      fontSize: 14,
+      fontWeight: 600,
+      color: "var(--label-neutral)",
+      letterSpacing: "0.0145em"
+    }
+  }, label) : null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      boxSizing: "border-box",
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+      height: sz.h,
+      padding: `0 ${sz.padH}px`,
+      background: disabled ? "var(--fill-alternative)" : "var(--background-normal)",
+      borderRadius: sz.radius,
+      boxShadow: `inset 0 0 0 ${focus && !invalid ? 1.5 : 1}px ${borderColor}${focus ? "" : ""}`,
+      outline: focus ? `3px solid ${invalid ? "color-mix(in srgb, var(--status-negative) 18%, transparent)" : "var(--primary-tint)"}` : "3px solid transparent",
+      transition: "box-shadow var(--duration-fast) var(--ease-standard), outline-color var(--duration-fast) var(--ease-standard)",
+      cursor: disabled ? "not-allowed" : "text"
+    }
+  }, leading ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "inline-flex",
+      color: "var(--label-alternative)",
+      flexShrink: 0
+    }
+  }, leading) : null, /*#__PURE__*/React.createElement("input", _extends({
+    id: fieldId,
+    type: type,
+    value: value,
+    defaultValue: defaultValue,
+    placeholder: placeholder,
+    disabled: disabled,
+    onChange: onChange,
+    onFocus: () => setFocus(true),
+    onBlur: () => setFocus(false),
+    "aria-invalid": invalid || undefined,
+    style: {
+      flex: 1,
+      minWidth: 0,
+      border: "none",
+      outline: "none",
+      background: "transparent",
+      fontFamily: "var(--font-sans)",
+      fontSize: sz.font,
+      fontWeight: 500,
+      color: "var(--label-normal)",
+      letterSpacing: "0.0096em"
+    }
+  }, rest)), trailing ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "inline-flex",
+      color: "var(--label-alternative)",
+      flexShrink: 0
+    }
+  }, trailing) : null), error || helper ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-sans)",
+      fontSize: 13,
+      letterSpacing: "0.0194em",
+      color: invalid ? "var(--status-negative)" : "var(--label-alternative)"
+    }
+  }, error || helper) : null);
+}
+Object.assign(__ds_scope, { TextField });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/TextField.jsx", error: String((e && e.message) || e) }); }
+
+// components/icons/Icon.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/* Wanted iconography — 24px grid, 1.8px nominal stroke rendered as
+   filled vector. Every glyph paints with currentColor, so an icon
+   takes the text color of its context unless you pass `color`.
+   Geometry extracted verbatim from the Wanted Figma icon library. */
+
+const ICONS = {
+  "home": {
+    x: 3.159,
+    y: 1.895,
+    p: [["M 8.229 0.222 C 8.542 -0.041 8.983 -0.07 9.325 0.134 L 9.448 0.222 L 17.346 6.853 C 17.525 7.003 17.64 7.213 17.674 7.441 L 17.684 7.579 L 17.684 19.263 C 17.684 19.743 17.328 20.139 16.865 20.202 L 16.737 20.211 L 11.052 20.211 C 10.529 20.211 10.104 19.786 10.104 19.263 C 10.104 18.784 10.461 18.387 10.923 18.324 L 11.052 18.316 L 15.789 18.316 L 15.789 8.02 L 8.839 2.184 L 1.894 8.021 L 1.894 18.316 L 5.683 18.316 L 5.683 11.684 C 5.683 11.205 6.04 10.808 6.502 10.745 L 6.631 10.737 L 11.052 10.737 C 11.531 10.737 11.928 11.093 11.991 11.556 L 11.999 11.684 L 11.999 15.474 C 11.999 15.997 11.575 16.421 11.052 16.421 C 10.572 16.421 10.176 16.065 10.113 15.602 L 10.104 15.474 L 10.103 12.632 L 7.578 12.632 L 7.578 19.263 C 7.578 19.743 7.222 20.139 6.759 20.202 L 6.631 20.211 L 0.947 20.211 C 0.468 20.211 0.071 19.854 0.009 19.392 L 0 19.263 L 0 7.579 C 0 7.346 0.086 7.123 0.238 6.95 L 0.338 6.854 L 8.229 0.222 Z", "nonzero"]]
+  },
+  "search": {
+    x: 1.895,
+    y: 1.895,
+    p: [["M 7.579 0 C 11.765 0 15.158 3.393 15.158 7.579 C 15.158 8.358 15.039 9.125 14.809 9.857 C 14.652 10.356 14.12 10.633 13.621 10.476 C 13.122 10.319 12.845 9.787 13.002 9.288 C 13.174 8.74 13.263 8.165 13.263 7.579 C 13.263 4.439 10.718 1.895 7.579 1.895 C 4.44 1.895 1.895 4.439 1.895 7.579 C 1.895 10.718 4.44 13.263 7.579 13.263 C 9.111 13.263 10.568 12.656 11.619 11.61 C 11.956 11.275 12.481 11.245 12.852 11.52 L 12.958 11.612 L 19.933 18.594 C 20.303 18.964 20.303 19.564 19.933 19.933 C 19.596 20.27 19.07 20.3 18.699 20.025 L 18.593 19.933 L 12.241 13.575 L 12.165 13.636 C 10.957 14.541 9.483 15.077 7.937 15.15 L 7.579 15.158 C 3.393 15.158 0 11.764 0 7.579 C 0 3.393 3.393 0 7.579 0 Z", "nonzero"]]
+  },
+  "bookmark": {
+    x: 4.421,
+    y: 1.895,
+    p: [["M 14.211 0 C 14.69 0 15.087 0.356 15.149 0.819 L 15.158 0.947 L 15.158 15.474 C 15.158 15.997 14.734 16.421 14.211 16.421 C 13.731 16.421 13.335 16.065 13.272 15.602 L 13.263 15.474 L 13.263 1.895 L 1.895 1.895 L 1.895 17.761 L 7.172 15.25 C 7.386 15.148 7.63 15.131 7.854 15.199 L 7.986 15.25 L 14.618 18.408 C 15.09 18.633 15.291 19.198 15.066 19.67 C 14.86 20.103 14.368 20.308 13.923 20.166 L 13.803 20.118 L 7.579 17.155 L 1.355 20.118 C 0.765 20.399 0.09 20.014 0.008 19.391 L 0 19.263 L 0 0.947 C 0 0.468 0.356 0.071 0.819 0.009 L 0.947 0 L 14.211 0 Z", "nonzero"]]
+  },
+  "bell": {
+    x: 2.837,
+    y: 2.1,
+    p: [["M 9.163 0 C 6.938 0 5.108 0.788 3.851 2.274 C 2.611 3.74 2.013 5.783 2.013 8.15 L 2.013 8.9 C 2.013 11.365 1.33 12.825 0.357 13.768 C -0.025 14.138 -0.065 14.65 0.072 15.026 C 0.21 15.409 0.591 15.8 1.162 15.8 L 17.163 15.8 C 17.735 15.8 18.115 15.409 18.254 15.026 C 18.39 14.65 18.351 14.138 17.969 13.768 C 16.996 12.825 16.313 11.365 16.313 8.9 L 16.313 8.15 C 16.313 5.783 15.715 3.74 14.475 2.274 C 13.217 0.788 11.388 0 9.163 0 Z M 3.813 8.15 C 3.813 6.065 4.34 4.483 5.225 3.437 C 6.092 2.411 7.388 1.8 9.163 1.8 C 10.938 1.8 12.233 2.411 13.101 3.437 C 13.986 4.483 14.513 6.065 14.513 8.15 L 14.513 8.9 C 14.513 11.063 14.981 12.727 15.832 14 L 2.494 14 C 3.345 12.727 3.813 11.063 3.813 8.9 L 3.813 8.15 Z", "evenodd"], ["M 7.163 18 C 6.666 18 6.263 18.403 6.263 18.9 C 6.263 19.397 6.666 19.8 7.163 19.8 L 11.163 19.8 C 11.66 19.8 12.063 19.397 12.063 18.9 C 12.063 18.403 11.66 18 11.163 18 L 7.163 18 Z", "nonzero"]]
+  },
+  "person": {
+    x: 2.6,
+    y: 2.6,
+    p: [["M 6.522 4.678 C 6.522 3.088 7.811 1.8 9.4 1.8 C 10.989 1.8 12.278 3.088 12.278 4.678 C 12.278 6.267 10.989 7.556 9.4 7.556 C 7.811 7.556 6.522 6.267 6.522 4.678 Z M 9.4 0 C 6.817 0 4.722 2.094 4.722 4.678 C 4.722 7.261 6.817 9.356 9.4 9.356 C 11.983 9.356 14.078 7.261 14.078 4.678 C 14.078 2.094 11.983 0 9.4 0 Z M 9.4 10.501 C 12.332 10.501 15.205 11.323 17.71 12.842 C 17.903 12.959 18.137 13.101 18.333 13.327 C 18.499 13.517 18.635 13.759 18.711 14 C 18.802 14.286 18.801 14.576 18.8 14.819 L 18.8 16.33 C 18.8 16.585 18.8 16.827 18.784 17.031 C 18.765 17.253 18.723 17.508 18.593 17.763 C 18.411 18.121 18.12 18.411 17.763 18.593 C 17.508 18.723 17.253 18.766 17.03 18.784 C 16.826 18.801 16.584 18.801 16.33 18.801 L 2.47 18.801 C 2.216 18.801 1.974 18.801 1.77 18.784 C 1.548 18.766 1.293 18.723 1.038 18.593 C 0.68 18.411 0.389 18.121 0.207 17.763 C 0.077 17.508 0.035 17.253 0.017 17.031 C 0 16.827 0 16.585 0 16.33 L 0 14.819 C -0.001 14.576 -0.001 14.285 0.089 14 C 0.165 13.759 0.301 13.517 0.467 13.326 C 0.664 13.101 0.898 12.959 1.091 12.842 C 3.595 11.323 6.468 10.501 9.4 10.501 Z M 1.822 14.508 C 4.01 13.11 6.609 12.301 9.4 12.301 C 12.191 12.301 14.79 13.11 16.978 14.508 C 16.982 14.51 17 14.526 17 14.565 L 17 16.9 C 17 16.955 16.955 17 16.9 17 L 1.9 17 C 1.845 17 1.8 16.955 1.8 16.9 L 1.8 14.565 C 1.8 14.526 1.819 14.51 1.822 14.508 Z", "evenodd"]]
+  },
+  "message": {
+    x: 1.899,
+    y: 3.164,
+    p: [["M 20.2 2.626 C 20.096 1.163 18.874 0 17.388 0 L 2.819 0 L 2.618 0.007 C 1.158 0.111 0 1.339 0 2.828 L 0 12.102 L 0.007 12.297 C 0.108 13.79 1.355 15.154 2.842 15.154 L 6.335 15.154 L 6.464 15.146 C 6.926 15.083 7.283 14.686 7.283 14.207 C 7.283 13.684 6.858 13.259 6.335 13.259 L 2.842 13.259 L 2.739 13.249 C 2.326 13.17 1.895 12.633 1.895 12.102 L 1.895 2.828 L 1.903 2.702 C 1.965 2.248 2.356 1.895 2.819 1.895 L 17.388 1.895 L 17.512 1.903 C 17.96 1.966 18.312 2.358 18.312 2.828 L 18.312 12.102 L 18.304 12.237 C 18.239 12.777 17.804 13.259 17.411 13.259 L 12.932 13.259 L 12.8 13.269 C 12.713 13.281 12.627 13.305 12.547 13.341 L 6.874 15.864 L 6.76 15.924 C 6.363 16.17 6.199 16.677 6.394 17.115 L 6.454 17.229 C 6.699 17.626 7.206 17.79 7.644 17.596 L 13.134 15.153 L 17.411 15.154 L 17.604 15.147 C 19.065 15.031 20.207 13.608 20.207 12.102 L 20.207 2.828 L 20.2 2.626 Z M 6.312 8.836 C 7.009 8.836 7.575 8.271 7.575 7.573 C 7.575 6.874 7.009 6.31 6.312 6.31 C 5.614 6.31 5.049 6.874 5.049 7.573 C 5.049 8.271 5.614 8.836 6.312 8.836 Z M 10.101 8.836 C 10.799 8.836 11.364 8.271 11.364 7.573 C 11.364 6.874 10.799 6.31 10.101 6.31 C 9.404 6.31 8.838 6.874 8.838 7.573 C 8.838 8.271 9.404 8.836 10.101 8.836 Z M 13.891 8.836 C 14.588 8.836 15.154 8.271 15.154 7.573 C 15.154 6.874 14.588 6.31 13.891 6.31 C 13.193 6.31 12.628 6.874 12.628 7.573 C 12.628 8.271 13.193 8.836 13.891 8.836 Z", "evenodd"]]
+  },
+  "heart": {
+    x: 1.579,
+    y: 3.474,
+    p: [["M 1.564 1.557 C 3.582 -0.452 6.834 -0.517 8.931 1.363 L 9.137 1.557 L 10.421 2.836 L 11.705 1.557 C 13.722 -0.452 16.975 -0.517 19.071 1.363 L 19.277 1.557 C 21.154 3.427 21.362 6.4 19.798 8.51 C 19.487 8.931 18.893 9.019 18.473 8.707 C 18.053 8.396 17.964 7.803 18.276 7.382 C 19.282 6.024 19.148 4.103 17.94 2.9 C 16.651 1.616 14.57 1.562 13.215 2.739 L 13.043 2.9 L 11.09 4.845 C 10.754 5.18 10.229 5.211 9.859 4.937 L 9.752 4.845 L 7.8 2.9 C 6.454 1.56 4.247 1.56 2.902 2.9 C 1.615 4.182 1.561 6.251 2.743 7.602 L 2.905 7.774 L 10.167 15.073 C 10.223 15.129 10.304 15.16 10.442 15.158 C 10.506 15.159 10.563 15.146 10.61 15.121 L 10.674 15.074 L 16.383 9.372 C 16.753 9.002 17.353 9.002 17.723 9.373 C 18.059 9.709 18.089 10.236 17.814 10.606 L 17.722 10.712 L 12.012 16.415 C 11.581 16.845 10.999 17.065 10.442 17.052 C 9.909 17.064 9.39 16.891 8.977 16.549 L 8.827 16.413 L 1.564 9.113 C -0.521 7.034 -0.521 3.636 1.564 1.557 Z", "nonzero"]]
+  },
+  "plus": {
+    x: 3.158,
+    y: 3.158,
+    p: [["M 9.781 0.819 C 9.718 0.356 9.322 0 8.842 0 C 8.319 0 7.895 0.424 7.895 0.947 L 7.895 7.895 L 0.947 7.895 L 0.819 7.903 C 0.356 7.966 0 8.362 0 8.842 C 0 9.365 0.424 9.789 0.947 9.789 L 7.895 9.789 L 7.895 16.737 L 7.903 16.865 C 7.966 17.328 8.363 17.684 8.842 17.684 C 9.365 17.684 9.79 17.26 9.79 16.737 L 9.79 9.789 L 16.737 9.789 L 16.865 9.781 C 17.328 9.718 17.684 9.322 17.684 8.842 C 17.684 8.319 17.26 7.895 16.737 7.895 L 9.79 7.895 L 9.79 0.947 L 9.781 0.819 Z", "nonzero"]]
+  },
+  "share": {
+    x: 0.632,
+    y: 1.895,
+    p: [["M 20.21 3.237 C 20.21 1.45 18.761 0 16.973 0 C 15.186 0 13.737 1.45 13.737 3.237 L 13.746 3.485 C 13.752 3.567 13.762 3.648 13.774 3.729 L 13.784 3.779 L 5.851 7.965 L 5.779 7.885 C 5.161 7.242 4.285 6.855 3.338 6.855 C 1.504 6.855 0 8.299 0 10.099 C 0 11.899 1.503 13.342 3.338 13.342 L 3.57 13.334 C 4.415 13.277 5.19 12.913 5.756 12.336 L 5.819 12.264 L 14.445 16.815 C 14.629 16.912 14.839 16.946 15.044 16.912 L 15.071 16.907 L 15.198 16.877 C 15.445 16.799 15.653 16.622 15.767 16.385 L 15.841 16.253 C 15.921 16.126 16.024 16.013 16.147 15.917 C 16.732 15.46 17.575 15.563 18.031 16.147 C 18.487 16.732 18.384 17.576 17.801 18.031 C 17.216 18.488 16.372 18.384 15.916 17.8 L 15.822 17.696 C 15.488 17.377 14.961 17.343 14.587 17.636 C 14.174 17.958 14.101 18.553 14.423 18.966 C 15.523 20.375 17.557 20.625 18.967 19.524 C 20.375 18.425 20.625 16.391 19.524 14.981 C 18.424 13.572 16.39 13.322 14.981 14.423 L 14.791 14.583 C 14.73 14.639 14.671 14.696 14.611 14.76 L 6.066 10.253 L 6.043 10.234 C 5.972 10.188 5.897 10.153 5.819 10.128 L 5.785 10.119 L 5.861 10.095 C 5.899 10.08 5.937 10.063 5.975 10.043 L 15.33 5.107 L 15.497 4.994 L 15.527 4.969 L 15.63 4.869 C 15.879 4.586 15.938 4.175 15.769 3.828 L 15.709 3.687 C 15.658 3.543 15.631 3.392 15.631 3.237 C 15.631 2.496 16.233 1.895 16.973 1.895 C 17.715 1.895 18.316 2.496 18.316 3.237 C 18.316 3.979 17.715 4.579 16.973 4.579 L 16.845 4.588 C 16.382 4.65 16.026 5.047 16.026 5.526 C 16.026 6.049 16.45 6.474 16.973 6.474 C 18.762 6.474 20.21 5.025 20.21 3.237 Z M 1.895 10.099 C 1.895 9.363 2.533 8.75 3.338 8.75 L 3.514 8.76 C 3.975 8.813 4.375 9.069 4.598 9.439 L 4.629 9.5 L 4.65 9.557 C 4.755 9.807 4.962 10.014 5.22 10.108 L 5.262 10.12 L 5.218 10.132 C 4.987 10.21 4.782 10.378 4.664 10.632 L 4.588 10.773 C 4.336 11.181 3.866 11.447 3.338 11.447 C 2.533 11.447 1.895 10.834 1.895 10.099 Z", "evenodd"]]
+  },
+  "setting": {
+    x: 2.526,
+    y: 1.895,
+    p: [["M 12.924 2.295 C 12.831 1.014 11.771 0 10.473 0 L 8.476 0 L 8.292 0.007 C 7.018 0.102 6.017 1.175 6.017 2.482 L 6.007 2.588 C 5.975 2.76 5.864 2.912 5.7 3.001 C 5.655 3.025 5.609 3.05 5.563 3.077 L 5.271 3.251 C 5.084 3.368 4.867 3.374 4.693 3.272 C 3.512 2.582 2.003 2.991 1.325 4.181 L 0.327 5.934 L 0.234 6.113 C -0.305 7.265 0.112 8.661 1.225 9.313 L 1.526 9.489 L 1.506 9.801 L 1.499 10.105 L 1.506 10.409 L 1.525 10.72 L 1.225 10.897 L 1.055 11.006 C 0.016 11.734 -0.313 13.154 0.327 14.277 L 1.325 16.029 L 1.433 16.202 C 2.154 17.257 3.572 17.595 4.692 16.938 C 4.866 16.837 5.084 16.843 5.27 16.959 C 5.412 17.048 5.557 17.132 5.702 17.211 C 5.897 17.316 6.017 17.514 6.017 17.731 L 6.023 17.915 C 6.117 19.196 7.177 20.211 8.476 20.211 L 10.473 20.211 L 10.656 20.204 C 11.931 20.109 12.931 19.035 12.931 17.729 L 12.941 17.623 C 12.973 17.451 13.084 17.299 13.248 17.21 C 13.394 17.131 13.54 17.046 13.684 16.954 C 13.864 16.843 14.083 16.837 14.257 16.939 C 15.436 17.629 16.945 17.219 17.623 16.029 L 18.621 14.277 L 18.677 14.161 C 18.851 13.728 18.682 13.222 18.266 12.985 C 17.811 12.726 17.232 12.885 16.974 13.34 L 15.977 15.092 L 15.91 15.186 C 15.736 15.386 15.447 15.44 15.214 15.303 C 14.425 14.842 13.453 14.867 12.676 15.35 C 12.563 15.422 12.456 15.484 12.349 15.542 C 11.542 15.978 11.036 16.814 11.036 17.731 L 11.027 17.837 C 10.979 18.111 10.747 18.316 10.473 18.316 L 8.476 18.316 L 8.375 18.306 C 8.114 18.257 7.911 18.02 7.911 17.729 L 7.902 17.519 C 7.832 16.687 7.344 15.944 6.601 15.543 C 6.494 15.485 6.386 15.422 6.276 15.353 C 5.496 14.867 4.524 14.842 3.735 15.303 C 3.468 15.459 3.129 15.367 2.971 15.091 L 1.974 13.339 L 1.929 13.242 C 1.836 12.978 1.939 12.675 2.182 12.533 L 3.02 12.042 L 3.139 11.96 C 3.397 11.751 3.53 11.417 3.478 11.081 C 3.422 10.714 3.394 10.402 3.394 10.105 C 3.394 9.808 3.422 9.496 3.478 9.131 C 3.537 8.747 3.356 8.366 3.021 8.17 L 2.183 7.678 L 2.098 7.618 C 1.89 7.438 1.83 7.123 1.973 6.872 L 2.972 5.119 L 3.039 5.024 C 3.213 4.824 3.502 4.771 3.736 4.907 C 4.524 5.369 5.497 5.345 6.274 4.859 C 6.314 4.834 6.353 4.81 6.39 4.788 L 6.781 4.561 C 7.481 4.104 7.911 3.327 7.911 2.48 L 7.921 2.374 C 7.969 2.1 8.202 1.895 8.476 1.895 L 10.473 1.895 L 10.573 1.904 C 10.834 1.953 11.036 2.19 11.036 2.482 L 11.045 2.692 C 11.116 3.524 11.604 4.266 12.347 4.668 L 12.559 4.788 L 12.673 4.859 C 13.452 5.345 14.425 5.369 15.213 4.907 C 15.48 4.751 15.82 4.843 15.977 5.119 L 16.974 6.871 L 17.018 6.968 C 17.112 7.233 17.009 7.536 16.766 7.678 L 15.928 8.17 L 15.809 8.252 C 15.551 8.461 15.419 8.795 15.47 9.131 C 15.526 9.491 15.554 9.805 15.554 10.105 C 15.554 10.405 15.526 10.719 15.47 11.081 C 15.411 11.465 15.593 11.845 15.927 12.042 L 16.418 12.33 L 16.534 12.387 C 16.964 12.567 17.472 12.406 17.715 11.992 L 17.772 11.877 C 17.936 11.485 17.817 11.03 17.483 10.768 L 17.42 10.725 L 17.442 10.41 L 17.448 10.105 C 17.448 9.902 17.439 9.699 17.422 9.49 L 17.724 9.313 L 17.894 9.204 C 18.933 8.476 19.26 7.056 18.62 5.933 L 17.624 4.182 L 17.516 4.009 C 16.795 2.953 15.377 2.616 14.256 3.272 C 14.082 3.374 13.864 3.368 13.678 3.252 C 13.528 3.158 13.386 3.075 13.247 3 C 13.051 2.894 12.931 2.696 12.931 2.48 L 12.924 2.295 Z", "nonzero"], ["M 9.474 5.684 L 9.716 5.691 C 12.045 5.817 13.895 7.745 13.895 10.105 C 13.895 12.547 11.915 14.526 9.474 14.526 C 7.032 14.526 5.053 12.547 5.053 10.105 C 5.053 7.745 6.903 5.817 9.231 5.691 L 9.474 5.684 Z M 9.285 7.586 C 7.978 7.682 6.948 8.774 6.948 10.105 C 6.948 11.5 8.079 12.632 9.474 12.632 C 10.869 12.632 12 11.5 12 10.105 C 12 8.774 10.97 7.682 9.662 7.586 L 9.474 7.579 L 9.285 7.586 Z", "evenodd"]]
+  },
+  "filter": {
+    x: 1.891,
+    y: 1.892,
+    p: [["M 19.265 0 C 19.788 0 20.212 0.424 20.212 0.947 C 20.212 1.427 19.856 1.823 19.393 1.886 L 19.265 1.895 L 2.797 1.894 L 8.083 9.239 C 8.17 9.36 8.227 9.499 8.25 9.645 L 8.261 9.792 L 8.261 15.273 L 11.945 17.561 L 11.946 9.792 C 11.946 9.643 11.981 9.497 12.048 9.365 L 12.125 9.239 L 15.513 4.535 C 15.819 4.111 16.411 4.014 16.835 4.32 C 17.221 4.598 17.336 5.113 17.124 5.523 L 17.05 5.643 L 13.84 10.098 L 13.841 19.266 C 13.841 19.965 13.118 20.408 12.507 20.131 L 12.394 20.071 L 6.814 16.605 C 6.576 16.456 6.417 16.212 6.377 15.939 L 6.367 15.8 L 6.367 10.098 L 0.18 1.501 C -0.244 0.911 0.127 0.102 0.816 0.009 L 0.949 0 L 19.265 0 Z", "nonzero"]]
+  },
+  "location": {
+    x: 3.6,
+    y: 2.35,
+    p: [["M 12.803 16.53 C 11.83 17.555 10.86 18.393 10.134 18.974 C 9.735 19.294 9.328 19.608 8.904 19.896 C 8.604 20.099 8.194 20.098 7.894 19.895 C 7.471 19.608 7.065 19.293 6.666 18.974 C 5.94 18.393 4.97 17.555 3.997 16.53 C 2.091 14.521 0 11.613 0 8.4 C 0 3.761 3.761 0 8.4 0 C 13.039 0 16.8 3.761 16.8 8.4 C 16.8 11.613 14.709 14.521 12.803 16.53 Z M 8.4 1.8 C 4.755 1.8 1.8 4.755 1.8 8.4 C 1.8 10.881 3.459 13.348 5.303 15.291 C 6.514 16.567 7.736 17.544 8.4 18.041 C 9.064 17.544 10.286 16.567 11.497 15.291 C 13.341 13.348 15 10.881 15 8.4 C 15 4.755 12.045 1.8 8.4 1.8 Z", "evenodd"], ["M 8.4 4.75 C 6.384 4.75 4.75 6.384 4.75 8.4 C 4.75 10.416 6.384 12.05 8.4 12.05 C 10.416 12.05 12.05 10.416 12.05 8.4 C 12.05 6.384 10.416 4.75 8.4 4.75 Z M 6.55 8.4 C 6.55 7.378 7.378 6.55 8.4 6.55 C 9.422 6.55 10.25 7.378 10.25 8.4 C 10.25 9.422 9.422 10.25 8.4 10.25 C 7.378 10.25 6.55 9.422 6.55 8.4 Z", "evenodd"]]
+  },
+  "pin": {
+    x: 4.681,
+    y: 2.602,
+    p: [["M 4.267 0 C 3.85 0 3.478 0 3.179 0.027 C 2.874 0.055 2.498 0.121 2.168 0.359 C 1.734 0.672 1.452 1.155 1.391 1.687 C 1.346 2.092 1.473 2.451 1.598 2.73 C 1.721 3.005 1.903 3.329 2.108 3.692 L 2.919 5.135 L 2.919 8.083 L 1.171 10.269 C 0.86 10.658 0.588 10.997 0.399 11.283 C 0.214 11.563 0 11.943 0 12.397 C -0.001 12.976 0.262 13.523 0.715 13.884 C 1.069 14.167 1.499 14.238 1.834 14.268 C 2.176 14.299 2.61 14.299 3.107 14.299 L 6.419 14.299 L 6.419 19.399 C 6.419 19.896 6.822 20.299 7.319 20.299 C 7.816 20.299 8.219 19.896 8.219 19.399 L 8.219 14.299 L 11.531 14.299 C 12.029 14.299 12.463 14.299 12.805 14.268 C 13.139 14.238 13.57 14.167 13.924 13.884 C 14.376 13.523 14.639 12.976 14.639 12.397 C 14.638 11.943 14.425 11.563 14.24 11.283 C 14.05 10.997 13.779 10.658 13.468 10.269 L 11.719 8.083 L 11.719 5.135 L 12.531 3.692 C 12.735 3.329 12.918 3.005 13.041 2.73 C 13.166 2.451 13.293 2.092 13.247 1.687 C 13.187 1.155 12.905 0.672 12.471 0.359 C 12.141 0.121 11.765 0.055 11.46 0.027 C 11.161 0 10.789 0 10.372 0 L 4.267 0 Z M 3.192 1.949 C 3.18 1.926 3.178 1.911 3.178 1.899 C 3.178 1.885 3.183 1.867 3.193 1.849 C 3.204 1.832 3.217 1.819 3.229 1.812 C 3.239 1.806 3.254 1.8 3.279 1.8 L 11.359 1.8 C 11.385 1.8 11.4 1.806 11.41 1.812 C 11.422 1.819 11.435 1.832 11.446 1.849 C 11.456 1.867 11.46 1.885 11.461 1.899 C 11.461 1.911 11.459 1.926 11.446 1.949 L 10.035 4.458 C 9.959 4.592 9.919 4.744 9.919 4.899 L 9.919 8.399 C 9.919 8.603 9.989 8.801 10.117 8.961 L 12.817 12.336 C 12.836 12.36 12.839 12.377 12.84 12.387 C 12.842 12.401 12.839 12.421 12.829 12.442 C 12.819 12.464 12.805 12.478 12.793 12.486 C 12.784 12.491 12.77 12.499 12.739 12.499 L 1.9 12.499 C 1.869 12.499 1.855 12.491 1.846 12.486 C 1.834 12.478 1.82 12.464 1.81 12.442 C 1.8 12.421 1.797 12.401 1.798 12.387 C 1.799 12.377 1.803 12.36 1.822 12.336 L 4.522 8.961 C 4.65 8.801 4.719 8.603 4.719 8.399 L 4.719 4.899 C 4.719 4.744 4.68 4.592 4.604 4.458 L 3.192 1.949 Z", "evenodd"]]
+  },
+  "clock": {
+    x: 2.1,
+    y: 2.1,
+    p: [["M 9.4 4.5 C 9.897 4.5 10.3 4.903 10.3 5.4 L 10.3 10.027 L 12.511 12.238 C 12.862 12.59 12.862 13.159 12.511 13.511 C 12.159 13.862 11.59 13.862 11.238 13.511 L 8.763 11.036 C 8.584 10.856 8.496 10.62 8.5 10.385 L 8.5 5.4 C 8.5 4.903 8.903 4.5 9.4 4.5 Z", "nonzero"], ["M 9.9 0 C 4.432 0 0 4.432 0 9.9 C 0 15.368 4.432 19.8 9.9 19.8 C 15.368 19.8 19.8 15.368 19.8 9.9 C 19.8 4.432 15.368 0 9.9 0 Z M 1.8 9.9 C 1.8 5.426 5.426 1.8 9.9 1.8 C 14.373 1.8 18 5.426 18 9.9 C 18 14.374 14.373 18 9.9 18 C 5.426 18 1.8 14.374 1.8 9.9 Z", "evenodd"]]
+  },
+  "coins": {
+    x: 3.6,
+    y: 2.349,
+    p: [["M 0 3.911 C 0 3.907 0 3.904 0 3.9 C 0 2.422 1.3 1.46 2.683 0.908 C 4.153 0.321 6.151 0 8.4 0 C 10.649 0 12.647 0.321 14.117 0.908 C 15.498 1.46 16.795 2.419 16.8 3.892 C 16.8 3.895 16.8 3.898 16.8 3.9 L 16.8 15.15 L 16.8 15.16 C 16.794 16.632 15.497 17.591 14.117 18.142 C 12.647 18.729 10.649 19.05 8.4 19.05 C 6.15 19.05 4.153 18.729 2.683 18.142 C 1.3 17.59 0 16.628 0 15.15 L 0 15.144 L 0 11.411 L 0 11.4 L 0 11.394 L 0 7.661 L 0 7.65 L 0 7.644 L 0 3.911 Z M 1.8 3.896 C 1.802 3.623 2.079 3.088 3.351 2.58 C 4.542 2.104 6.295 1.8 8.4 1.8 C 10.505 1.8 12.258 2.104 13.449 2.58 C 14.727 3.09 15 3.628 15 3.9 C 15 4.172 14.727 4.71 13.449 5.22 C 12.258 5.696 10.505 6 8.4 6 C 6.295 6 4.542 5.696 3.351 5.22 C 2.08 4.713 1.803 4.178 1.8 3.904 L 1.8 3.9 L 1.8 3.896 Z M 15 6.47 L 15 7.643 L 15 7.65 C 15 7.922 14.727 8.46 13.449 8.971 C 12.258 9.446 10.505 9.75 8.4 9.75 C 6.295 9.75 4.542 9.446 3.351 8.97 C 2.08 8.463 1.803 7.928 1.8 7.655 L 1.8 6.469 C 2.082 6.63 2.381 6.771 2.683 6.892 C 4.153 7.479 6.15 7.8 8.4 7.8 C 10.649 7.8 12.647 7.479 14.117 6.892 C 14.419 6.771 14.718 6.631 15 6.47 Z M 1.8 11.405 L 1.8 10.22 C 2.082 10.381 2.381 10.521 2.683 10.642 C 4.153 11.229 6.15 11.55 8.4 11.55 C 10.649 11.55 12.647 11.229 14.117 10.642 C 14.419 10.521 14.718 10.381 15 10.22 L 15 11.393 L 15 11.4 C 15 11.672 14.727 12.21 13.449 12.721 C 12.258 13.196 10.505 13.5 8.4 13.5 C 6.295 13.5 4.542 13.196 3.351 12.72 C 2.08 12.213 1.803 11.678 1.8 11.405 Z M 14.117 14.392 C 14.419 14.271 14.718 14.131 15 13.97 L 15 15.143 L 15 15.15 C 15 15.422 14.727 15.96 13.449 16.471 C 12.258 16.946 10.505 17.25 8.4 17.25 C 6.295 17.25 4.542 16.946 3.351 16.47 C 2.079 15.962 1.803 15.427 1.8 15.154 L 1.8 15.15 L 1.8 13.97 C 2.082 14.131 2.381 14.271 2.683 14.392 C 4.153 14.979 6.15 15.3 8.4 15.3 C 10.649 15.3 12.647 14.979 14.117 14.392 Z", "evenodd"]]
+  },
+  "calendar": {
+    x: 1.888,
+    y: 3.158,
+    p: [["M 6.314 0.819 C 6.251 0.356 5.855 0 5.375 0 C 4.852 0 4.428 0.424 4.428 0.947 L 4.428 1.263 L 1.901 1.263 L 1.72 1.271 C 0.711 1.36 0 2.19 0 3.208 L 0.007 15.79 L 0.015 15.978 C 0.101 16.963 0.867 17.684 1.901 17.684 L 18.322 17.684 L 18.513 17.676 C 19.512 17.588 20.217 16.807 20.217 15.789 L 20.217 3.158 L 20.209 2.97 C 20.122 1.984 19.356 1.263 18.322 1.263 L 17.691 1.263 L 17.562 1.272 C 17.1 1.335 16.743 1.731 16.743 2.211 C 16.743 2.734 17.168 3.158 17.691 3.158 L 18.322 3.158 L 18.322 15.789 L 1.901 15.789 L 1.895 3.207 L 1.892 3.156 L 1.901 3.158 L 4.428 3.158 L 4.428 4.105 L 4.436 4.234 C 4.499 4.696 4.895 5.053 5.375 5.053 C 5.898 5.053 6.322 4.628 6.322 4.105 L 6.322 3.158 L 13.901 3.158 L 13.901 4.105 L 13.91 4.234 C 13.973 4.696 14.369 5.053 14.849 5.053 C 15.372 5.053 15.796 4.628 15.796 4.105 L 15.796 0.947 L 15.787 0.819 C 15.725 0.356 15.328 0 14.849 0 C 14.326 0 13.901 0.424 13.901 0.947 L 13.901 1.263 L 6.322 1.263 L 6.322 0.947 L 6.314 0.819 Z", "nonzero"], ["M 17.691 8.526 C 17.691 8.003 17.267 7.579 16.743 7.579 L 3.48 7.579 L 3.352 7.588 C 2.889 7.65 2.533 8.047 2.533 8.526 C 2.533 9.05 2.957 9.474 3.48 9.474 L 16.743 9.474 L 16.872 9.465 C 17.334 9.402 17.691 9.006 17.691 8.526 Z", "nonzero"]]
+  },
+  "chevronDown": {
+    x: 3.1,
+    y: 7.1,
+    p: [["M 0.264 0.264 C 0.615 -0.088 1.185 -0.088 1.536 0.264 L 8.9 7.627 L 16.264 0.264 C 16.615 -0.088 17.185 -0.088 17.536 0.264 C 17.888 0.615 17.888 1.185 17.536 1.536 L 9.536 9.536 C 9.185 9.888 8.615 9.888 8.264 9.536 L 0.264 1.536 C -0.088 1.185 -0.088 0.615 0.264 0.264 Z", "nonzero"]]
+  },
+  "check": {
+    x: 4.35,
+    y: 6.6,
+    p: [["M 15.036 0.264 C 15.388 0.615 15.388 1.185 15.036 1.536 L 6.036 10.536 C 5.685 10.888 5.115 10.888 4.764 10.536 L 0.264 6.036 C -0.088 5.685 -0.088 5.115 0.264 4.764 C 0.615 4.412 1.185 4.412 1.536 4.764 L 5.4 8.627 L 13.764 0.264 C 14.115 -0.088 14.685 -0.088 15.036 0.264 Z", "nonzero"]]
+  },
+  "close": {
+    x: 4.6,
+    y: 4.6,
+    p: [["M 0.264 0.264 C 0.615 -0.088 1.185 -0.088 1.536 0.264 L 7.4 6.127 L 13.264 0.264 C 13.615 -0.088 14.185 -0.088 14.536 0.264 C 14.888 0.615 14.888 1.185 14.536 1.536 L 8.673 7.4 L 14.536 13.264 C 14.888 13.615 14.888 14.185 14.536 14.536 C 14.185 14.888 13.615 14.888 13.264 14.536 L 7.4 8.673 L 1.536 14.536 C 1.185 14.888 0.615 14.888 0.264 14.536 C -0.088 14.185 -0.088 13.615 0.264 13.264 L 6.127 7.4 L 0.264 1.536 C -0.088 1.185 -0.088 0.615 0.264 0.264 Z", "nonzero"]]
+  },
+  "chevronLeft": {
+    x: 6.6,
+    y: 3.099,
+    p: [["M 9.536 0.264 C 9.888 0.615 9.888 1.185 9.536 1.536 L 2.173 8.9 L 9.536 16.264 C 9.888 16.615 9.888 17.185 9.536 17.536 C 9.185 17.888 8.615 17.888 8.264 17.536 L 0.264 9.536 C -0.088 9.185 -0.088 8.615 0.264 8.264 L 8.264 0.264 C 8.615 -0.088 9.185 -0.088 9.536 0.264 Z", "nonzero"]]
+  },
+  "chevronRight": {
+    x: 7.6,
+    y: 3.099,
+    p: [["M 0.264 0.264 C -0.088 0.615 -0.088 1.185 0.264 1.536 L 7.627 8.9 L 0.264 16.264 C -0.088 16.615 -0.088 17.185 0.264 17.536 C 0.615 17.888 1.185 17.888 1.536 17.536 L 9.536 9.536 C 9.888 9.185 9.888 8.615 9.536 8.264 L 1.536 0.264 C 1.185 -0.088 0.615 -0.088 0.264 0.264 Z", "nonzero"]]
+  },
+  "circleCheck": {
+    x: 2.1,
+    y: 2.1,
+    p: [["M 14.547 7.776 C 14.892 7.419 14.883 6.849 14.526 6.503 C 14.169 6.158 13.599 6.167 13.253 6.524 L 8.577 11.355 L 6.548 9.252 C 6.202 8.895 5.633 8.885 5.275 9.23 C 4.917 9.575 4.907 10.145 5.252 10.502 L 7.929 13.275 C 8.098 13.451 8.332 13.55 8.576 13.55 C 8.82 13.55 9.053 13.451 9.223 13.276 L 14.547 7.776 Z", "nonzero"], ["M 9.9 0 C 4.432 0 0 4.432 0 9.9 C 0 15.368 4.432 19.8 9.9 19.8 C 15.368 19.8 19.8 15.368 19.8 9.9 C 19.8 4.432 15.368 0 9.9 0 Z M 1.8 9.9 C 1.8 5.426 5.426 1.8 9.9 1.8 C 14.373 1.8 18 5.426 18 9.9 C 18 14.374 14.373 18 9.9 18 C 5.426 18 1.8 14.374 1.8 9.9 Z", "evenodd"]]
+  },
+  "circleInfo": {
+    x: 2.1,
+    y: 2.1,
+    p: [["M 10.9 5.9 C 10.9 6.452 10.452 6.9 9.9 6.9 C 9.348 6.9 8.9 6.452 8.9 5.9 C 8.9 5.348 9.348 4.9 9.9 4.9 C 10.452 4.9 10.9 5.348 10.9 5.9 Z", "nonzero"], ["M 10.8 9.4 C 10.8 8.903 10.397 8.5 9.9 8.5 C 9.403 8.5 9 8.903 9 9.4 L 9 13.9 C 9 14.397 9.403 14.8 9.9 14.8 C 10.397 14.8 10.8 14.397 10.8 13.9 L 10.8 9.4 Z", "nonzero"], ["M 0 9.9 C 0 4.432 4.432 0 9.9 0 C 15.368 0 19.8 4.432 19.8 9.9 C 19.8 15.368 15.368 19.8 9.9 19.8 C 4.432 19.8 0 15.368 0 9.9 Z M 9.9 1.8 C 5.426 1.8 1.8 5.426 1.8 9.9 C 1.8 14.374 5.426 18 9.9 18 C 14.373 18 18 14.374 18 9.9 C 18 5.426 14.373 1.8 9.9 1.8 Z", "evenodd"]]
+  },
+  "circleExclamation": {
+    x: 2.1,
+    y: 2.1,
+    p: [["M 10.9 13.9 C 10.9 14.452 10.452 14.9 9.9 14.9 C 9.348 14.9 8.9 14.452 8.9 13.9 C 8.9 13.348 9.348 12.9 9.9 12.9 C 10.452 12.9 10.9 13.348 10.9 13.9 Z", "nonzero"], ["M 10.8 5.9 C 10.8 5.403 10.397 5 9.9 5 C 9.403 5 9 5.403 9 5.9 L 9 10.4 C 9 10.897 9.403 11.3 9.9 11.3 C 10.397 11.3 10.8 10.897 10.8 10.4 L 10.8 5.9 Z", "nonzero"], ["M 0 9.9 C 0 4.432 4.432 0 9.9 0 C 15.368 0 19.8 4.432 19.8 9.9 C 19.8 15.368 15.368 19.8 9.9 19.8 C 4.432 19.8 0 15.368 0 9.9 Z M 9.9 1.8 C 5.426 1.8 1.8 5.426 1.8 9.9 C 1.8 14.374 5.426 18 9.9 18 C 14.373 18 18 14.374 18 9.9 C 18 5.426 14.373 1.8 9.9 1.8 Z", "evenodd"]]
+  },
+  "triangleExclamation": {
+    x: 1.96,
+    y: 2.85,
+    p: [["M 10.041 5.25 C 10.538 5.25 10.941 5.653 10.941 6.15 L 10.941 10.15 C 10.941 10.647 10.538 11.05 10.041 11.05 C 9.543 11.05 9.141 10.647 9.141 10.15 L 9.141 6.15 C 9.141 5.653 9.543 5.25 10.041 5.25 Z", "nonzero"], ["M 11.04 13.65 C 11.04 14.202 10.593 14.65 10.04 14.65 C 9.488 14.65 9.04 14.202 9.04 13.65 C 9.04 13.098 9.488 12.65 10.04 12.65 C 10.593 12.65 11.04 13.098 11.04 13.65 Z", "nonzero"], ["M 11.22 0.251 C 10.469 -0.084 9.612 -0.084 8.861 0.251 C 8.337 0.484 7.96 0.911 7.631 1.376 C 7.306 1.836 6.948 2.457 6.512 3.211 L 1.401 12.064 C 0.965 12.818 0.607 13.439 0.371 13.951 C 0.133 14.468 -0.048 15.008 0.012 15.578 C 0.097 16.396 0.526 17.138 1.191 17.621 C 1.655 17.958 2.213 18.072 2.78 18.123 C 3.342 18.175 4.058 18.175 4.929 18.175 L 15.151 18.175 C 16.023 18.175 16.739 18.175 17.301 18.123 C 17.867 18.072 18.426 17.958 18.89 17.621 C 19.555 17.138 19.983 16.396 20.069 15.578 C 20.129 15.008 19.948 14.468 19.71 13.951 C 19.473 13.439 19.115 12.818 18.68 12.064 L 13.569 3.211 C 13.133 2.457 12.775 1.836 12.449 1.376 C 12.121 0.911 11.743 0.484 11.22 0.251 Z M 9.088 2.35 C 9.511 1.617 10.57 1.617 10.993 2.35 L 18.138 14.725 C 18.561 15.458 18.032 16.375 17.185 16.375 L 2.896 16.375 C 2.049 16.375 1.52 15.458 1.943 14.725 L 9.088 2.35 Z", "evenodd"]]
+  },
+  "trash": {
+    x: 3.1,
+    y: 1.854,
+    p: [["M 6.9 8.747 C 7.397 8.747 7.8 9.149 7.8 9.647 L 7.8 14.647 C 7.8 15.144 7.397 15.547 6.9 15.547 C 6.403 15.547 6 15.144 6 14.647 L 6 9.647 C 6 9.149 6.403 8.747 6.9 8.747 Z", "nonzero"], ["M 10.9 8.747 C 11.397 8.747 11.8 9.149 11.8 9.647 L 11.8 14.647 C 11.8 15.144 11.397 15.547 10.9 15.547 C 10.403 15.547 10 15.144 10 14.647 L 10 9.647 C 10 9.149 10.403 8.747 10.9 8.747 Z", "nonzero"], ["M 16.9 3.997 L 13.3 3.997 C 13.3 3.496 13.299 3.068 13.27 2.713 C 13.238 2.324 13.168 1.945 12.984 1.583 C 12.706 1.038 12.262 0.594 11.716 0.316 C 11.354 0.132 10.976 0.062 10.587 0.03 C 10.216 0 9.765 0 9.235 0 L 8.564 0 C 8.035 0 7.583 0 7.213 0.03 C 6.824 0.062 6.445 0.132 6.083 0.316 C 5.538 0.594 5.094 1.038 4.816 1.583 C 4.632 1.945 4.562 2.324 4.53 2.713 C 4.501 3.068 4.5 3.496 4.5 3.997 L 0.9 3.997 C 0.403 3.997 0 4.4 0 4.897 C 0 5.394 0.403 5.797 0.9 5.797 L 1.5 5.797 L 1.5 16.233 C 1.5 16.763 1.5 17.214 1.53 17.585 C 1.562 17.974 1.632 18.353 1.816 18.714 C 2.094 19.26 2.538 19.704 3.083 19.982 C 3.445 20.166 3.824 20.236 4.213 20.268 C 4.583 20.298 5.035 20.298 5.564 20.298 L 12.235 20.298 C 12.765 20.298 13.216 20.298 13.587 20.268 C 13.976 20.236 14.354 20.166 14.716 19.982 C 15.262 19.704 15.706 19.26 15.984 18.714 C 16.168 18.353 16.238 17.974 16.27 17.585 C 16.3 17.214 16.3 16.763 16.3 16.233 L 16.3 5.797 L 16.9 5.797 C 17.397 5.797 17.8 5.394 17.8 4.897 C 17.8 4.4 17.397 3.997 16.9 3.997 Z M 11.5 3.997 L 6.3 3.997 L 6.3 3.691 C 6.3 2.876 6.311 2.682 6.354 2.551 C 6.463 2.216 6.725 1.954 7.06 1.845 C 7.192 1.802 7.386 1.791 8.2 1.791 L 9.6 1.791 C 10.415 1.791 10.609 1.802 10.74 1.845 C 11.075 1.954 11.338 2.216 11.446 2.551 C 11.489 2.682 11.5 2.876 11.5 3.691 L 11.5 3.997 Z M 3.3 16.591 L 3.3 5.797 L 14.5 5.797 L 14.5 16.591 C 14.5 17.406 14.489 17.6 14.446 17.731 C 14.338 18.066 14.075 18.329 13.74 18.438 C 13.609 18.48 13.415 18.491 12.6 18.491 L 5.2 18.491 C 4.386 18.491 4.192 18.48 4.06 18.438 C 3.725 18.329 3.463 18.066 3.354 17.731 C 3.311 17.6 3.3 17.406 3.3 16.591 Z", "evenodd"]]
+  },
+  "globe": {
+    x: 2.1,
+    y: 2.1,
+    p: [["M 1.058 5.441 C 0.381 6.781 0 8.296 0 9.9 C 0 15.368 4.432 19.8 9.9 19.8 C 15.368 19.8 19.8 15.368 19.8 9.9 C 19.8 4.432 15.368 0 9.9 0 C 6.047 0 2.707 2.202 1.072 5.416 C 1.067 5.424 1.063 5.433 1.058 5.441 Z M 3.051 5.573 C 4.487 3.306 7.017 1.8 9.9 1.8 C 10.284 1.8 10.662 1.827 11.033 1.879 L 10.838 4.798 L 7.455 6.301 L 7.435 6.31 C 7.404 6.324 7.359 6.344 7.325 6.36 C 7.272 6.386 7.186 6.43 7.095 6.503 C 7.003 6.576 6.941 6.65 6.904 6.696 C 6.88 6.726 6.851 6.765 6.831 6.792 L 6.817 6.81 L 6.107 7.757 L 3.051 5.573 Z M 2.255 7.217 L 5.204 9.323 C 5.448 9.498 5.863 9.752 6.381 9.681 C 6.908 9.609 7.243 9.243 7.442 8.977 L 8.229 7.927 L 11.668 6.399 C 11.893 6.299 12.165 6.141 12.365 5.851 C 12.563 5.563 12.611 5.256 12.627 5.026 L 12.806 2.337 C 15.844 3.505 18 6.451 18 9.9 C 18 14.374 14.374 18 9.9 18 C 5.426 18 1.8 14.374 1.8 9.9 C 1.8 8.96 1.96 8.057 2.255 7.217 Z", "evenodd"], ["M 10.759 10.138 C 10.765 10.14 10.771 10.142 10.777 10.144 C 10.795 10.15 10.813 10.156 10.83 10.163 L 13.942 11.425 L 13.959 11.432 C 13.966 11.435 13.973 11.438 13.981 11.441 C 14.098 11.491 14.233 11.549 14.346 11.61 C 14.473 11.678 14.658 11.792 14.808 11.995 C 14.999 12.25 15.093 12.566 15.073 12.884 C 15.057 13.136 14.965 13.333 14.895 13.459 C 14.834 13.572 14.752 13.694 14.682 13.8 C 14.677 13.806 14.673 13.813 14.669 13.819 L 13.562 15.479 C 13.558 15.485 13.553 15.493 13.547 15.502 C 13.492 15.586 13.379 15.759 13.216 15.893 C 13.079 16.006 12.921 16.09 12.751 16.142 C 12.55 16.203 12.342 16.201 12.242 16.2 C 12.232 16.2 12.222 16.2 12.215 16.2 L 10.419 16.2 C 10.408 16.2 10.396 16.2 10.383 16.2 C 10.252 16.202 9.98 16.205 9.73 16.106 C 9.52 16.024 9.334 15.889 9.189 15.716 C 9.016 15.51 8.933 15.251 8.893 15.127 C 8.889 15.114 8.885 15.102 8.882 15.092 L 8.24 13.168 C 8.238 13.162 8.236 13.155 8.233 13.147 C 8.208 13.072 8.155 12.917 8.141 12.751 C 8.129 12.61 8.139 12.467 8.171 12.329 C 8.209 12.166 8.283 12.021 8.319 11.95 C 8.322 11.943 8.325 11.936 8.328 11.931 L 8.816 10.956 C 8.818 10.951 8.821 10.945 8.824 10.939 C 8.866 10.855 8.917 10.753 8.97 10.665 C 9.032 10.562 9.127 10.423 9.281 10.299 C 9.482 10.137 9.726 10.036 9.984 10.008 C 10.18 9.987 10.346 10.018 10.462 10.047 C 10.562 10.072 10.67 10.108 10.759 10.138 Z M 10.351 11.911 L 9.972 12.669 L 10.549 14.4 L 12.118 14.4 L 13.048 13.005 L 10.351 11.911 Z M 12 14.576 C 11.999 14.576 11.999 14.576 12 14.576 Z M 12.331 14.399 C 12.331 14.399 12.331 14.399 12.331 14.399 Z M 9.92 12.514 C 9.92 12.513 9.92 12.513 9.92 12.514 Z M 9.899 12.816 C 9.899 12.816 9.899 12.816 9.899 12.816 Z", "evenodd"]]
+  },
+  "squareMore": {
+    x: 2.6,
+    y: 2.602,
+    p: [["M 6.649 9.398 C 6.649 9.951 6.202 10.398 5.649 10.398 C 5.097 10.398 4.649 9.951 4.649 9.398 C 4.649 8.846 5.097 8.398 5.649 8.398 C 6.202 8.398 6.649 8.846 6.649 9.398 Z", "nonzero"], ["M 9.399 10.398 C 9.952 10.398 10.399 9.951 10.399 9.398 C 10.399 8.846 9.952 8.398 9.399 8.398 C 8.847 8.398 8.399 8.846 8.399 9.398 C 8.399 9.951 8.847 10.398 9.399 10.398 Z", "nonzero"], ["M 13.149 10.398 C 13.702 10.398 14.149 9.951 14.149 9.398 C 14.149 8.846 13.702 8.398 13.149 8.398 C 12.597 8.398 12.149 8.846 12.149 9.398 C 12.149 9.951 12.597 10.398 13.149 10.398 Z", "nonzero"], ["M 5.662 0 C 4.854 0 4.193 0 3.656 0.044 C 3.1 0.089 2.598 0.186 2.129 0.425 C 1.396 0.799 0.799 1.396 0.425 2.129 C 0.186 2.598 0.089 3.1 0.044 3.656 C 0 4.193 0 4.854 0 5.662 L 0 13.138 C 0 13.946 0 14.607 0.044 15.144 C 0.089 15.7 0.186 16.202 0.425 16.671 C 0.799 17.404 1.396 18.001 2.129 18.375 C 2.598 18.614 3.1 18.711 3.656 18.756 C 4.193 18.8 4.854 18.8 5.662 18.8 L 13.138 18.8 C 13.946 18.8 14.607 18.8 15.144 18.756 C 15.7 18.711 16.202 18.614 16.671 18.375 C 17.404 18.001 18.001 17.404 18.375 16.671 C 18.614 16.202 18.711 15.7 18.756 15.144 C 18.8 14.607 18.8 13.946 18.8 13.138 L 18.8 5.662 C 18.8 4.854 18.8 4.193 18.756 3.656 C 18.711 3.1 18.614 2.598 18.375 2.129 C 18.001 1.396 17.404 0.799 16.671 0.425 C 16.202 0.186 15.7 0.089 15.144 0.044 C 14.607 0 13.946 0 13.138 0 L 5.662 0 Z M 2.947 2.029 C 3.119 1.941 3.358 1.874 3.803 1.838 C 4.258 1.801 4.845 1.8 5.7 1.8 L 13.1 1.8 C 13.955 1.8 14.542 1.801 14.997 1.838 C 15.442 1.874 15.68 1.941 15.853 2.029 C 16.248 2.23 16.57 2.551 16.771 2.947 C 16.859 3.119 16.926 3.358 16.962 3.803 C 16.999 4.258 17 4.845 17 5.7 L 17 13.1 C 17 13.955 16.999 14.542 16.962 14.997 C 16.926 15.442 16.859 15.681 16.771 15.853 C 16.57 16.249 16.248 16.57 15.853 16.771 C 15.68 16.859 15.442 16.926 14.997 16.962 C 14.542 16.999 13.955 17 13.1 17 L 5.7 17 C 4.845 17 4.258 16.999 3.803 16.962 C 3.358 16.926 3.119 16.859 2.947 16.771 C 2.551 16.57 2.23 16.249 2.029 15.853 C 1.941 15.681 1.874 15.442 1.838 14.997 C 1.801 14.542 1.8 13.955 1.8 13.1 L 1.8 5.7 C 1.8 4.845 1.801 4.258 1.838 3.803 C 1.874 3.358 1.941 3.119 2.029 2.947 C 2.23 2.551 2.551 2.23 2.947 2.029 Z", "evenodd"]]
+  }
+};
+const ICON_NAMES = Object.keys(ICONS);
+function Icon({
+  name,
+  size = 24,
+  color,
+  title,
+  className,
+  style,
+  ...rest
+}) {
+  const ic = ICONS[name];
+  if (!ic) {
+    if (typeof console !== "undefined") console.warn("Icon: unknown name '" + name + "'");
+    return null;
+  }
+  return /*#__PURE__*/React.createElement("span", _extends({
+    className: className,
+    role: title ? "img" : "presentation",
+    "aria-label": title || undefined,
+    "aria-hidden": title ? undefined : "true",
+    style: {
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      width: size,
+      height: size,
+      flexShrink: 0,
+      color: color,
+      ...style
+    }
+  }, rest), /*#__PURE__*/React.createElement("svg", {
+    width: size,
+    height: size,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    style: {
+      display: "block"
+    }
+  }, /*#__PURE__*/React.createElement("g", {
+    transform: `translate(${ic.x} ${ic.y})`
+  }, ic.p.map((p, i) => /*#__PURE__*/React.createElement("path", {
+    key: i,
+    d: p[0],
+    fill: "currentColor",
+    fillRule: p[1],
+    clipRule: p[1]
+  })))));
+}
+Object.assign(__ds_scope, { ICON_NAMES, Icon });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/icons/Icon.jsx", error: String((e && e.message) || e) }); }
+
+// components/feedback/Toast.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/* Toast — transient inverse-surface message. Optional status icon and
+   a single trailing text action. Render inside your own positioning /
+   timeout logic; this is the presentational shell. */
+
+const STATUS = {
+  neutral: null,
+  positive: {
+    name: "circleCheck",
+    color: "var(--status-positive)"
+  },
+  negative: {
+    name: "circleExclamation",
+    color: "var(--status-negative)"
+  },
+  info: {
+    name: "circleInfo",
+    color: "var(--inverse-primary)"
+  }
+};
+function Toast({
+  children,
+  status = "neutral",
+  icon,
+  action,
+  onAction,
+  style,
+  ...rest
+}) {
+  const st = STATUS[status];
+  return /*#__PURE__*/React.createElement("div", _extends({
+    role: "status",
+    style: {
+      boxSizing: "border-box",
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 10,
+      maxWidth: 520,
+      padding: "13px 16px",
+      background: "var(--inverse-background)",
+      color: "var(--inverse-label)",
+      borderRadius: 12,
+      boxShadow: "var(--shadow-popover)",
+      fontFamily: "var(--font-sans)",
+      fontSize: 15,
+      fontWeight: 500,
+      lineHeight: "22px",
+      letterSpacing: "0.0096em",
+      ...style
+    }
+  }, rest), icon ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "inline-flex",
+      flexShrink: 0
+    }
+  }, icon) : st ? /*#__PURE__*/React.createElement(__ds_scope.Icon, {
+    name: st.name,
+    size: 22,
+    color: st.color
+  }) : null, /*#__PURE__*/React.createElement("span", {
+    style: {
+      flex: 1
+    }
+  }, children), action ? /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    onClick: onAction,
+    style: {
+      appearance: "none",
+      border: "none",
+      background: "transparent",
+      color: "var(--inverse-primary)",
+      fontFamily: "var(--font-sans)",
+      fontSize: 15,
+      fontWeight: 700,
+      cursor: "pointer",
+      flexShrink: 0,
+      padding: "0 2px"
+    }
+  }, action) : null);
+}
+Object.assign(__ds_scope, { Toast });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/Toast.jsx", error: String((e && e.message) || e) }); }
+
+// components/navigation/SegmentedControl.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+const {
+  useState
+} = React;
+/* SegmentedControl — a compact 2–4 option switch with a sliding white
+   knob over a grey fill track. Controlled or uncontrolled. */
+function SegmentedControl({
+  items = [],
+  value,
+  defaultValue,
+  onChange,
+  size = "md",
+  fullWidth = false,
+  style,
+  ...rest
+}) {
+  const isControlled = value !== undefined;
+  const [internal, setInternal] = useState(defaultValue ?? (items[0] && items[0].value));
+  const current = isControlled ? value : internal;
+  const idx = Math.max(0, items.findIndex(it => it.value === current));
+  const h = size === "sm" ? 32 : 40;
+  const font = size === "sm" ? 13 : 14;
+  const select = v => {
+    if (!isControlled) setInternal(v);
+    onChange && onChange(v);
+  };
+  return /*#__PURE__*/React.createElement("div", _extends({
+    role: "tablist",
+    style: {
+      position: "relative",
+      display: fullWidth ? "grid" : "inline-grid",
+      gridTemplateColumns: `repeat(${items.length}, ${fullWidth ? "1fr" : "minmax(64px, auto)"})`,
+      width: fullWidth ? "100%" : "auto",
+      height: h,
+      padding: 3,
+      background: "var(--fill-normal)",
+      borderRadius: size === "sm" ? 10 : 12,
+      boxSizing: "border-box",
+      ...style
+    }
+  }, rest), /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true",
+    style: {
+      position: "absolute",
+      top: 3,
+      left: 3,
+      height: h - 6,
+      width: `calc((100% - 6px) / ${items.length})`,
+      transform: `translateX(${idx * 100}%)`,
+      background: "var(--background-normal)",
+      borderRadius: size === "sm" ? 8 : 9,
+      boxShadow: "0 1px 3px rgba(23,23,25,0.10)",
+      transition: "transform var(--duration-base) var(--ease-emphasized)"
+    }
+  }), items.map(it => {
+    const active = it.value === current;
+    return /*#__PURE__*/React.createElement("button", {
+      key: it.value,
+      type: "button",
+      role: "tab",
+      "aria-selected": active,
+      onClick: () => select(it.value),
+      style: {
+        position: "relative",
+        zIndex: 1,
+        appearance: "none",
+        border: "none",
+        background: "transparent",
+        fontFamily: "var(--font-sans)",
+        fontSize: font,
+        fontWeight: active ? 600 : 500,
+        color: active ? "var(--label-normal)" : "var(--label-alternative)",
+        cursor: "pointer",
+        padding: "0 14px",
+        transition: "color var(--duration-base) var(--ease-standard)",
+        whiteSpace: "nowrap"
+      }
+    }, it.label);
+  }));
+}
+Object.assign(__ds_scope, { SegmentedControl });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/SegmentedControl.jsx", error: String((e && e.message) || e) }); }
+
+// components/navigation/Tabs.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+const {
+  useState
+} = React;
+/* Tabs — underline navigation across primary sections. Active tab gets
+   strong label color + a primary indicator; supports a trailing count. */
+function Tabs({
+  items = [],
+  value,
+  defaultValue,
+  onChange,
+  fullWidth = false,
+  style,
+  ...rest
+}) {
+  const isControlled = value !== undefined;
+  const [internal, setInternal] = useState(defaultValue ?? (items[0] && items[0].value));
+  const current = isControlled ? value : internal;
+  const select = v => {
+    if (!isControlled) setInternal(v);
+    onChange && onChange(v);
+  };
+  return /*#__PURE__*/React.createElement("div", _extends({
+    role: "tablist",
+    style: {
+      display: "flex",
+      gap: fullWidth ? 0 : 20,
+      boxShadow: "inset 0 -1px 0 var(--line-normal)",
+      ...style
+    }
+  }, rest), items.map(it => {
+    const active = it.value === current;
+    return /*#__PURE__*/React.createElement("button", {
+      key: it.value,
+      type: "button",
+      role: "tab",
+      "aria-selected": active,
+      onClick: () => select(it.value),
+      style: {
+        appearance: "none",
+        border: "none",
+        background: "transparent",
+        flex: fullWidth ? 1 : "0 0 auto",
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 6,
+        padding: "12px 2px",
+        fontFamily: "var(--font-sans)",
+        fontSize: 16,
+        fontWeight: active ? 700 : 500,
+        letterSpacing: "-0.012em",
+        color: active ? "var(--label-normal)" : "var(--label-alternative)",
+        cursor: "pointer",
+        boxShadow: active ? "inset 0 -2px 0 var(--label-normal)" : "none",
+        transition: "color var(--duration-fast) var(--ease-standard)",
+        whiteSpace: "nowrap"
+      }
+    }, it.label, it.count != null ? /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 14,
+        fontWeight: 600,
+        color: active ? "var(--primary-normal)" : "var(--label-assistive)"
+      }
+    }, it.count) : null);
+  }));
+}
+Object.assign(__ds_scope, { Tabs });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Tabs.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/wanted/HomeScreen.jsx
+try { (() => {
+/* HomeScreen — Wanted jobs feed: shortcuts, filter chips, a horizontal
+   "high match" rail, theme chips, and a recommended list. */
+function SectionHeader({
+  title,
+  action
+}) {
+  const {
+    Icon
+  } = window.WantedDesignSystem_3ed5bb;
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      padding: "0 20px",
+      marginBottom: 14
+    }
+  }, /*#__PURE__*/React.createElement("h2", {
+    className: "wt-heading2",
+    style: {
+      margin: 0,
+      color: "var(--label-normal)"
+    }
+  }, title), action ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 2,
+      color: "var(--label-alternative)",
+      fontSize: 13,
+      fontWeight: 500
+    }
+  }, action, /*#__PURE__*/React.createElement(Icon, {
+    name: "chevronRight",
+    size: 16
+  })) : null);
+}
+function HomeScreen({
+  bookmarks,
+  toggleBookmark,
+  openJob
+}) {
+  const {
+    Chip,
+    Icon,
+    ContentBadge
+  } = window.WantedDesignSystem_3ed5bb;
+  const jobs = window.WANTED_JOBS;
+  const [filter, setFilter] = React.useState("all");
+  const filters = [["all", "전체"], ["dev", "개발"], ["design", "디자인"], ["market", "마케팅"], ["pm", "기획"]];
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 28,
+      paddingBottom: 28
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      padding: "20px 24px 0"
+    }
+  }, window.WANTED_SHORTCUTS.map(s => /*#__PURE__*/React.createElement("div", {
+    key: s.label,
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: 8,
+      cursor: "pointer"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 52,
+      height: 52,
+      borderRadius: 16,
+      background: "var(--primary-tint)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: s.icon,
+    size: 24,
+    color: "var(--primary-normal)"
+  })), /*#__PURE__*/React.createElement("span", {
+    className: "wt-caption1",
+    style: {
+      color: "var(--label-neutral)"
+    }
+  }, s.label)))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 8,
+      overflowX: "auto",
+      padding: "0 20px",
+      scrollbarWidth: "none"
+    }
+  }, filters.map(([k, v]) => /*#__PURE__*/React.createElement(Chip, {
+    key: k,
+    selected: filter === k,
+    onClick: () => setFilter(k)
+  }, v)), /*#__PURE__*/React.createElement(Chip, {
+    leadingIcon: /*#__PURE__*/React.createElement(Icon, {
+      name: "filter",
+      size: 14
+    })
+  }, "\uD544\uD130")), /*#__PURE__*/React.createElement("section", null, /*#__PURE__*/React.createElement(SectionHeader, {
+    title: "\uD569\uACA9 \uAC00\uB2A5\uC131 \uB192\uC740 \uD3EC\uC9C0\uC158",
+    action: "\uC804\uCCB4"
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 16,
+      overflowX: "auto",
+      padding: "0 20px 4px",
+      scrollbarWidth: "none"
+    }
+  }, jobs.slice(0, 5).map(job => /*#__PURE__*/React.createElement(window.JobCard, {
+    key: job.id,
+    job: job,
+    variant: "grid",
+    bookmarked: bookmarks.has(job.id),
+    onBookmark: () => toggleBookmark(job.id),
+    onOpen: () => openJob(job.id)
+  })))), /*#__PURE__*/React.createElement("section", null, /*#__PURE__*/React.createElement(SectionHeader, {
+    title: "\uD14C\uB9C8\uB85C \uC0B4\uD3B4\uBCF4\uB294 \uD3EC\uC9C0\uC158"
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "1fr 1fr",
+      gap: 10,
+      padding: "0 20px"
+    }
+  }, window.WANTED_THEMES.map(t => /*#__PURE__*/React.createElement("div", {
+    key: t.label,
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 10,
+      padding: "14px 16px",
+      borderRadius: 14,
+      background: "var(--background-normal)",
+      boxShadow: "inset 0 0 0 1px var(--line-normal)",
+      cursor: "pointer"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 8,
+      height: 8,
+      borderRadius: 9999,
+      background: `var(--accent-foreground-${t.tone})`
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "wt-body2",
+    style: {
+      fontWeight: 600,
+      color: "var(--label-normal)"
+    }
+  }, t.label))))), /*#__PURE__*/React.createElement("section", null, /*#__PURE__*/React.createElement(SectionHeader, {
+    title: "\uCD94\uCC9C \uD3EC\uC9C0\uC158",
+    action: "\uB354\uBCF4\uAE30"
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "0 20px"
+    }
+  }, jobs.map(job => /*#__PURE__*/React.createElement(window.JobCard, {
+    key: job.id,
+    job: job,
+    variant: "row",
+    bookmarked: bookmarks.has(job.id),
+    onBookmark: () => toggleBookmark(job.id),
+    onOpen: () => openJob(job.id)
+  })))));
+}
+window.HomeScreen = HomeScreen;
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/wanted/HomeScreen.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/wanted/JobCard.jsx
+try { (() => {
+/* JobCard — Wanted's signature posting card.
+   `variant="grid"` = 152px horizontal-scroll card; `variant="row"` =
+   full-width list card. Composes Avatar + ContentBadge from the DS. */
+function JobCard({
+  job,
+  variant = "grid",
+  bookmarked,
+  onBookmark,
+  onOpen
+}) {
+  const {
+    Avatar,
+    ContentBadge,
+    Icon
+  } = window.WantedDesignSystem_3ed5bb;
+  if (variant === "row") {
+    return /*#__PURE__*/React.createElement("div", {
+      onClick: onOpen,
+      style: {
+        display: "flex",
+        gap: 14,
+        padding: "16px 0",
+        cursor: "pointer",
+        boxShadow: "inset 0 -1px 0 var(--line-alternative)"
+      }
+    }, /*#__PURE__*/React.createElement(Avatar, {
+      name: job.company,
+      size: 48,
+      style: {
+        background: job.logo,
+        color: "#fff"
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: 1,
+        minWidth: 0
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        gap: 4,
+        marginBottom: 5
+      }
+    }, /*#__PURE__*/React.createElement(ContentBadge, {
+      tone: "violet"
+    }, job.reward)), /*#__PURE__*/React.createElement("div", {
+      className: "wt-body1",
+      style: {
+        fontWeight: 600,
+        color: "var(--label-normal)",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        whiteSpace: "nowrap"
+      }
+    }, job.title), /*#__PURE__*/React.createElement("div", {
+      className: "wt-label1",
+      style: {
+        color: "var(--label-neutral)",
+        marginTop: 2
+      }
+    }, job.company), /*#__PURE__*/React.createElement("div", {
+      className: "wt-label2",
+      style: {
+        color: "var(--label-alternative)",
+        marginTop: 3
+      }
+    }, job.location, " \xB7 ", job.exp)), /*#__PURE__*/React.createElement("button", {
+      onClick: e => {
+        e.stopPropagation();
+        onBookmark && onBookmark();
+      },
+      style: {
+        appearance: "none",
+        border: "none",
+        background: "transparent",
+        cursor: "pointer",
+        padding: 2,
+        height: "fit-content",
+        color: bookmarked ? "var(--primary-normal)" : "var(--label-assistive)"
+      }
+    }, /*#__PURE__*/React.createElement(Icon, {
+      name: "bookmark",
+      size: 22
+    })));
+  }
+
+  // grid
+  return /*#__PURE__*/React.createElement("div", {
+    onClick: onOpen,
+    style: {
+      width: 152,
+      flexShrink: 0,
+      cursor: "pointer",
+      display: "flex",
+      flexDirection: "column",
+      gap: 10
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "relative"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: "100%",
+      height: 152,
+      borderRadius: 16,
+      background: job.logo,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      overflow: "hidden",
+      boxShadow: "inset 0 0 0 1px var(--line-alternative)"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-sans)",
+      fontSize: 44,
+      fontWeight: 700,
+      color: "rgba(255,255,255,0.92)"
+    }
+  }, job.company.charAt(0))), /*#__PURE__*/React.createElement("button", {
+    onClick: e => {
+      e.stopPropagation();
+      onBookmark && onBookmark();
+    },
+    style: {
+      position: "absolute",
+      top: 8,
+      right: 8,
+      width: 32,
+      height: 32,
+      borderRadius: "var(--radius-full)",
+      border: "none",
+      background: "rgba(255,255,255,0.92)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      cursor: "pointer",
+      color: bookmarked ? "var(--primary-normal)" : "var(--label-alternative)"
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "bookmark",
+    size: 18
+  }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "wt-label1",
+    style: {
+      fontWeight: 600,
+      color: "var(--label-normal)",
+      display: "-webkit-box",
+      WebkitLineClamp: 2,
+      WebkitBoxOrient: "vertical",
+      overflow: "hidden",
+      lineHeight: "20px",
+      minHeight: 40
+    }
+  }, job.title), /*#__PURE__*/React.createElement("div", {
+    className: "wt-label2",
+    style: {
+      color: "var(--label-neutral)",
+      marginTop: 4,
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      whiteSpace: "nowrap"
+    }
+  }, job.company), /*#__PURE__*/React.createElement("div", {
+    className: "wt-caption1",
+    style: {
+      color: "var(--label-alternative)",
+      marginTop: 2,
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      whiteSpace: "nowrap"
+    }
+  }, job.location), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 7,
+      fontFamily: "var(--font-sans)",
+      fontSize: 12,
+      fontWeight: 600,
+      color: "var(--violet-50)"
+    }
+  }, job.reward)));
+}
+window.JobCard = JobCard;
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/wanted/JobCard.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/wanted/JobDetailScreen.jsx
+try { (() => {
+/* JobDetailScreen — posting detail with a sticky apply bar. */
+function JobDetailScreen({
+  job,
+  bookmarked,
+  toggleBookmark,
+  onBack,
+  onApply
+}) {
+  const {
+    Icon,
+    IconButton,
+    ContentBadge,
+    Button,
+    Avatar,
+    Card
+  } = window.WantedDesignSystem_3ed5bb;
+  if (!job) return null;
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      height: "100%"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      height: 56,
+      flexShrink: 0,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      padding: "0 8px",
+      background: "var(--background-normal)",
+      boxShadow: "inset 0 -1px 0 var(--line-alternative)"
+    }
+  }, /*#__PURE__*/React.createElement(IconButton, {
+    icon: /*#__PURE__*/React.createElement(Icon, {
+      name: "chevronLeft"
+    }),
+    "aria-label": "\uB4A4\uB85C",
+    onClick: onBack
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 2
+    }
+  }, /*#__PURE__*/React.createElement(IconButton, {
+    icon: /*#__PURE__*/React.createElement(Icon, {
+      name: "share"
+    }),
+    "aria-label": "\uACF5\uC720"
+  }), /*#__PURE__*/React.createElement(IconButton, {
+    icon: /*#__PURE__*/React.createElement(Icon, {
+      name: "squareMore"
+    }),
+    "aria-label": "\uB354\uBCF4\uAE30"
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      overflowY: "auto"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "24px 20px 20px",
+      display: "flex",
+      flexDirection: "column",
+      gap: 14
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 12
+    }
+  }, /*#__PURE__*/React.createElement(Avatar, {
+    name: job.company,
+    size: 56,
+    style: {
+      background: job.logo,
+      color: "#fff",
+      fontSize: 24
+    }
+  }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "wt-headline2",
+    style: {
+      fontWeight: 600,
+      color: "var(--label-normal)"
+    }
+  }, job.company), /*#__PURE__*/React.createElement("div", {
+    className: "wt-label1",
+    style: {
+      color: "var(--label-alternative)",
+      marginTop: 2
+    }
+  }, "IT\xB7\uC18C\uD504\uD2B8\uC6E8\uC5B4 \xB7 200~500\uBA85"))), /*#__PURE__*/React.createElement("h1", {
+    className: "wt-title2",
+    style: {
+      margin: 0,
+      color: "var(--label-normal)",
+      letterSpacing: "-0.0236em"
+    }
+  }, job.title), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexWrap: "wrap",
+      gap: 6
+    }
+  }, /*#__PURE__*/React.createElement(ContentBadge, {
+    tone: "blue"
+  }, job.type), /*#__PURE__*/React.createElement(ContentBadge, {
+    tone: "neutral"
+  }, job.location), /*#__PURE__*/React.createElement(ContentBadge, {
+    tone: "neutral"
+  }, job.exp), /*#__PURE__*/React.createElement(ContentBadge, {
+    tone: "red",
+    variant: "solid"
+  }, job.deadline))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "0 20px 20px"
+    }
+  }, /*#__PURE__*/React.createElement(Card, {
+    padding: 16,
+    style: {
+      background: "var(--primary-tint)",
+      boxShadow: "none",
+      display: "flex",
+      alignItems: "center",
+      gap: 10
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "coins",
+    size: 22,
+    color: "var(--primary-normal)"
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "wt-label1",
+    style: {
+      fontWeight: 700,
+      color: "var(--primary-strong)"
+    }
+  }, job.reward), /*#__PURE__*/React.createElement("div", {
+    className: "wt-caption1",
+    style: {
+      color: "var(--primary-normal)",
+      opacity: 0.8
+    }
+  }, "\uC774 \uD3EC\uC9C0\uC158\uC5D0 \uD569\uACA9\uD558\uBA74 \uBC1B\uC744 \uC218 \uC788\uC5B4\uC694")))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "0 20px 24px",
+      display: "flex",
+      flexWrap: "wrap",
+      gap: 8
+    }
+  }, job.tags.map(t => /*#__PURE__*/React.createElement("span", {
+    key: t,
+    style: {
+      padding: "6px 12px",
+      borderRadius: 9999,
+      background: "var(--fill-normal)",
+      fontFamily: "var(--font-sans)",
+      fontSize: 13,
+      fontWeight: 500,
+      color: "var(--label-neutral)"
+    }
+  }, "#", t))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      height: 8,
+      background: "var(--background-normal-alternative)"
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "24px 20px 20px",
+      display: "flex",
+      flexDirection: "column",
+      gap: 24
+    }
+  }, [{
+    h: "주요 업무",
+    items: ["사용자 중심의 웹 서비스 프론트엔드 개발", "디자인 시스템 구축 및 운영", "성능 최적화와 접근성 개선"]
+  }, {
+    h: "자격 요건",
+    items: ["관련 경력 3년 이상 보유하신 분", "React 및 TypeScript 실무 경험", "협업과 커뮤니케이션에 능숙하신 분"]
+  }, {
+    h: "우대 사항",
+    items: ["대규모 트래픽 서비스 경험", "오픈소스 기여 경험"]
+  }].map(sec => /*#__PURE__*/React.createElement("div", {
+    key: sec.h
+  }, /*#__PURE__*/React.createElement("h3", {
+    className: "wt-headline1",
+    style: {
+      margin: "0 0 12px",
+      fontWeight: 600,
+      color: "var(--label-normal)"
+    }
+  }, sec.h), /*#__PURE__*/React.createElement("ul", {
+    style: {
+      margin: 0,
+      padding: 0,
+      listStyle: "none",
+      display: "flex",
+      flexDirection: "column",
+      gap: 9
+    }
+  }, sec.items.map((it, i) => /*#__PURE__*/React.createElement("li", {
+    key: i,
+    style: {
+      display: "flex",
+      gap: 9
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 5,
+      height: 5,
+      borderRadius: 9999,
+      background: "var(--label-assistive)",
+      marginTop: 9,
+      flexShrink: 0
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "wt-body1-reading",
+    style: {
+      color: "var(--label-neutral)"
+    }
+  }, it)))))), /*#__PURE__*/React.createElement("div", {
+    className: "wt-caption1",
+    style: {
+      color: "var(--label-assistive)"
+    }
+  }, "\uCD5C\uADFC \uC77C\uC8FC\uC77C ", job.applicants, "\uBA85\uC774 \uC9C0\uC6D0\uD588\uC5B4\uC694"))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      flexShrink: 0,
+      display: "flex",
+      alignItems: "center",
+      gap: 10,
+      padding: "10px 16px 14px",
+      background: "var(--background-normal)",
+      boxShadow: "inset 0 1px 0 var(--line-normal)"
+    }
+  }, /*#__PURE__*/React.createElement(IconButton, {
+    variant: "outline",
+    size: "lg",
+    icon: /*#__PURE__*/React.createElement(Icon, {
+      name: "bookmark"
+    }),
+    "aria-label": "\uC800\uC7A5",
+    onClick: toggleBookmark,
+    style: bookmarked ? {
+      color: "var(--primary-normal)",
+      boxShadow: "inset 0 0 0 1px var(--primary-normal)"
+    } : undefined
+  }), /*#__PURE__*/React.createElement(Button, {
+    size: "lg",
+    fullWidth: true,
+    onClick: onApply,
+    style: {
+      flex: 1
+    }
+  }, "\uC9C0\uC6D0\uD558\uAE30")));
+}
+window.JobDetailScreen = JobDetailScreen;
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/wanted/JobDetailScreen.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/wanted/TopBar.jsx
+try { (() => {
+/* TopBar — Wanted GNB. Wordmark left, search + bell right.
+   The wordmark is the real Wanted vector (inline SVG, currentColor). */
+function WantedWordmark({
+  height = 18,
+  color = "var(--label-normal)"
+}) {
+  return /*#__PURE__*/React.createElement("svg", {
+    viewBox: "0 0 3213 730",
+    height: height,
+    style: {
+      display: "block",
+      color
+    }
+  }, /*#__PURE__*/React.createElement("path", {
+    fill: "currentColor",
+    d: "M 2964 730 C 3027 730 3080 703 3109 661 L 3109 720 L 3213 720 L 3213 0 L 3109 0 L 3109 274 C 3080 235 3026 210 2963 210 C 2818 210 2707 327 2707 470 C 2707 613 2819 730 2964 730 Z M 2964 630 C 2879 630 2809 557 2809 470 C 2809 383 2879 310 2964 310 C 3049 310 3119 383 3119 470 C 3119 557 3049 630 2964 630 Z M 2269 428 C 2273 364 2336 303 2414 303 C 2492 303 2551 364 2555 428 L 2269 428 Z M 2423 730 C 2524 730 2612 672 2648 592 L 2565 564 C 2541 607 2485 637 2424 637 C 2336 637 2273 583 2269 510 L 2654 510 C 2674 342 2573 210 2423 210 C 2273 210 2167 317 2167 470 C 2167 623 2272 730 2423 730 Z M 2050 729 C 2081 729 2112 722 2132 711 L 2132 620 C 2108 632 2087 637 2073 637 C 2033 637 2013 613 2013 564 L 2013 302 L 2132 302 L 2132 220 L 2013 220 L 2013 120 L 1909 120 L 1909 220 L 1829 220 L 1829 302 L 1909 302 L 1909 568 C 1909 669 1961 729 2050 729 Z M 1337 720 L 1441 720 L 1441 436 C 1441 349 1490 300 1561 300 C 1632 300 1680 349 1680 436 L 1680 720 L 1784 720 L 1784 430 C 1784 289 1719 210 1593 210 C 1526 210 1466 237 1441 284 L 1441 220 L 1337 220 L 1337 720 Z M 998 630 C 913 630 843 557 843 470 C 843 383 913 310 998 310 C 1083 310 1153 383 1153 470 C 1153 557 1083 630 998 630 Z M 998 730 C 1061 730 1114 703 1143 661 L 1143 720 L 1247 720 L 1247 220 L 1143 220 L 1143 274 C 1114 235 1060 210 997 210 C 852 210 741 327 741 470 C 741 613 853 730 998 730 Z M 176 720 L 275 720 L 368 440 L 461 720 L 560 720 L 736 220 L 627 220 L 512 572 L 407 220 L 329 220 L 224 572 L 109 220 L 0 220 L 176 720 Z"
+  }));
+}
+window.WantedWordmark = WantedWordmark;
+function TopBar({
+  onSearch
+}) {
+  const {
+    IconButton,
+    Icon,
+    Badge
+  } = window.WantedDesignSystem_3ed5bb;
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      height: 56,
+      flexShrink: 0,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      padding: "0 8px 0 16px",
+      background: "var(--background-normal)",
+      boxShadow: "inset 0 -1px 0 var(--line-alternative)"
+    }
+  }, /*#__PURE__*/React.createElement(WantedWordmark, {
+    height: 18
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 2
+    }
+  }, /*#__PURE__*/React.createElement(IconButton, {
+    icon: /*#__PURE__*/React.createElement(Icon, {
+      name: "search"
+    }),
+    "aria-label": "\uAC80\uC0C9",
+    onClick: onSearch
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      position: "relative",
+      display: "inline-flex"
+    }
+  }, /*#__PURE__*/React.createElement(IconButton, {
+    icon: /*#__PURE__*/React.createElement(Icon, {
+      name: "bell"
+    }),
+    "aria-label": "\uC54C\uB9BC"
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      position: "absolute",
+      top: 6,
+      right: 6,
+      pointerEvents: "none"
+    }
+  }, /*#__PURE__*/React.createElement(Badge, {
+    dot: true
+  })))));
+}
+window.TopBar = TopBar;
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/wanted/TopBar.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/wanted/data.js
+try { (() => {
+/* Mock job data for the Wanted UI kit. Company marks render as
+   initial avatars (no real logos shipped). */
+window.WANTED_JOBS = [{
+  id: 1,
+  title: "프론트엔드 개발자 (React)",
+  company: "토스",
+  logo: "#0064FF",
+  location: "서울 강남구",
+  exp: "경력 3~7년",
+  type: "정규직",
+  reward: "합격보상금 200만원",
+  tags: ["React", "TypeScript", "Next.js"],
+  deadline: "D-5",
+  applicants: 312
+}, {
+  id: 2,
+  title: "프로덕트 디자이너",
+  company: "당근",
+  logo: "#FF7E36",
+  location: "서울 서초구",
+  exp: "경력 3년 이상",
+  type: "정규직",
+  reward: "합격보상금 100만원",
+  tags: ["Figma", "디자인시스템"],
+  deadline: "D-12",
+  applicants: 188
+}, {
+  id: 3,
+  title: "서버 개발자 (Node.js)",
+  company: "배민",
+  logo: "#2AC1BC",
+  location: "서울 송파구",
+  exp: "경력 5년 이상",
+  type: "정규직",
+  reward: "합격보상금 150만원",
+  tags: ["Node.js", "AWS", "MSA"],
+  deadline: "D-3",
+  applicants: 421
+}, {
+  id: 4,
+  title: "데이터 분석가",
+  company: "라인",
+  logo: "#06C755",
+  location: "경기 성남시",
+  exp: "경력 2~5년",
+  type: "정규직",
+  reward: "합격보상금 100만원",
+  tags: ["SQL", "Python", "BigQuery"],
+  deadline: "D-20",
+  applicants: 96
+}, {
+  id: 5,
+  title: "iOS 개발자",
+  company: "쿠팡",
+  logo: "#A50034",
+  location: "서울 송파구",
+  exp: "경력 4년 이상",
+  type: "정규직",
+  reward: "합격보상금 120만원",
+  tags: ["Swift", "SwiftUI"],
+  deadline: "D-7",
+  applicants: 154
+}, {
+  id: 6,
+  title: "그로스 마케터",
+  company: "무신사",
+  logo: "#000000",
+  location: "서울 성동구",
+  exp: "경력 3~6년",
+  type: "정규직",
+  reward: "합격보상금 80만원",
+  tags: ["퍼포먼스", "CRM"],
+  deadline: "D-9",
+  applicants: 73
+}];
+window.WANTED_SHORTCUTS = [{
+  icon: "person",
+  label: "이력서 관리"
+}, {
+  icon: "bookmark",
+  label: "관심 공고"
+}, {
+  icon: "coins",
+  label: "합격축하금"
+}, {
+  icon: "globe",
+  label: "커리어 조회"
+}];
+window.WANTED_THEMES = [{
+  label: "재택근무",
+  tone: "blue"
+}, {
+  label: "적극 채용 중",
+  tone: "green"
+}, {
+  label: "스톡옵션",
+  tone: "violet"
+}, {
+  label: "수평적 문화",
+  tone: "orange"
+}];
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/wanted/data.js", error: String((e && e.message) || e) }); }
+
+__ds_ns.Avatar = __ds_scope.Avatar;
+
+__ds_ns.Badge = __ds_scope.Badge;
+
+__ds_ns.Button = __ds_scope.Button;
+
+__ds_ns.Chip = __ds_scope.Chip;
+
+__ds_ns.ContentBadge = __ds_scope.ContentBadge;
+
+__ds_ns.IconButton = __ds_scope.IconButton;
+
+__ds_ns.Card = __ds_scope.Card;
+
+__ds_ns.ListCell = __ds_scope.ListCell;
+
+__ds_ns.Toast = __ds_scope.Toast;
+
+__ds_ns.Checkbox = __ds_scope.Checkbox;
+
+__ds_ns.Radio = __ds_scope.Radio;
+
+__ds_ns.Switch = __ds_scope.Switch;
+
+__ds_ns.TextField = __ds_scope.TextField;
+
+__ds_ns.ICON_NAMES = __ds_scope.ICON_NAMES;
+
+__ds_ns.Icon = __ds_scope.Icon;
+
+__ds_ns.SegmentedControl = __ds_scope.SegmentedControl;
+
+__ds_ns.Tabs = __ds_scope.Tabs;
+
+})();

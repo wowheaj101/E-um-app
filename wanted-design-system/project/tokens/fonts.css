@@ -1,0 +1,13 @@
+/* ============================================================
+   Wanted Design System — Webfonts
+   Product typeface: Pretendard JP (KR / EN / JP), SIL OFL.
+   Loaded via the official jsDelivr dynamic-subset CDN so only
+   the glyphs a page uses are downloaded.
+   ============================================================ */
+
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-jp-dynamic-subset.min.css");
+
+/* Wanted Sans (brand display face) is reserved for the masterbrand
+   wordmark, which ships as vector art in /assets/logos. For live text
+   it falls back to Pretendard JP — see --font-brand in typography.css.
+   Drop real Wanted Sans @font-face rules here if you self-host them. */

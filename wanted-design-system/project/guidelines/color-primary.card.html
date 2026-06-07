@@ -1,0 +1,32 @@
+<!-- @dsCard group="Colors" viewport="700x190" name="Primary — Wanted Blue" subtitle="Brand blue ramp + primary semantics" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; font-family: var(--font-sans); background: var(--background-normal); color: var(--label-normal); }
+  .wrap { padding: 24px; }
+  .ramp { display: grid; grid-template-columns: repeat(8, 1fr); gap: 0; border-radius: 12px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--line-alternative); }
+  .sw { height: 64px; display: flex; align-items: flex-end; padding: 6px; box-sizing: border-box; }
+  .sw span { font-size: 10px; font-weight: 600; }
+  .sem { display: flex; gap: 10px; margin-top: 14px; }
+  .chip { flex: 1; border-radius: 10px; padding: 12px; box-shadow: inset 0 0 0 1px var(--line-alternative); }
+  .chip .t { font-size: 12px; font-weight: 600; }
+  .chip .v { font-size: 11px; color: var(--label-alternative); margin-top: 2px; }
+  .dot { width: 22px; height: 22px; border-radius: 6px; margin-bottom: 8px; }
+</style></head>
+<body><div class="wrap">
+  <div class="ramp" id="ramp"></div>
+  <div class="sem">
+    <div class="chip"><div class="dot" style="background:var(--primary-normal)"></div><div class="t">primary-normal</div><div class="v">#0066FF · blue-50</div></div>
+    <div class="chip"><div class="dot" style="background:var(--primary-strong)"></div><div class="t">primary-strong</div><div class="v">#005EEB · blue-45</div></div>
+    <div class="chip"><div class="dot" style="background:var(--primary-heavy)"></div><div class="t">primary-heavy</div><div class="v">#0054D1 · blue-40</div></div>
+    <div class="chip"><div class="dot" style="background:var(--primary-tint);box-shadow:inset 0 0 0 1px var(--line-normal)"></div><div class="t">primary-tint</div><div class="v">blue-95 surface</div></div>
+  </div>
+</div>
+<script>
+  const steps = [["99","#f7fbff"],["95","#eaf2fe"],["90","#c9defe"],["80","#9ec5ff"],["70","#69a5ff"],["60","#3385ff"],["50","#0066ff"],["40","#0054d1"]];
+  document.getElementById('ramp').innerHTML = steps.map(([k,hex])=>{
+    const dark = parseInt(k) <= 60; return `<div class="sw" style="background:${hex}"><span style="color:${dark?'#fff':'#0054d1'}">${k}</span></div>`;
+  }).join('');
+</script>
+</body></html>

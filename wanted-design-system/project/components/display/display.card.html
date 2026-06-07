@@ -1,0 +1,63 @@
+<!-- @dsCard group="Components" viewport="700x360" name="Cards, List & Toast" subtitle="Card · ListCell · Toast" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  body { margin: 0; font-family: var(--font-sans); background: var(--background-normal-alternative); color: var(--label-normal); }
+  .wrap { padding: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  .lbl { font-size: 11px; color: var(--label-alternative); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 10px; }
+  .stack { display: flex; flex-direction: column; gap: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap"><div id="root" style="display:contents"></div></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel">
+  const { Card, ListCell, Toast, Avatar, Icon, ContentBadge, Switch } = window.WantedDesignSystem_3ed5bb;
+  function Demo() {
+    return (
+      <React.Fragment>
+        <div>
+          <div className="lbl">Card</div>
+          <Card>
+            <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+              <Avatar name="토스" size="lg" />
+              <div style={{ flex: 1 }}>
+                <div style={{ display: "flex", gap: 6, marginBottom: 4 }}>
+                  <ContentBadge tone="blue">정규직</ContentBadge>
+                  <ContentBadge tone="orange">D-5</ContentBadge>
+                </div>
+                <div className="wt-headline1" style={{ fontWeight: 600 }}>프론트엔드 개발자</div>
+                <div className="wt-body2" style={{ color: "var(--label-alternative)" }}>토스 · 서울 강남구</div>
+              </div>
+              <Icon name="bookmark" size={22} color="var(--label-assistive)" />
+            </div>
+          </Card>
+        </div>
+        <div>
+          <div className="lbl">ListCell</div>
+          <Card padding={8}>
+            <ListCell title="채용 알림" description="관심 직군 새 공고" trailing={<Switch defaultChecked aria-label="채용 알림" />} divider />
+            <ListCell title="지원 현황" trailing={<Icon name="chevronRight" size={20} />} onClick={()=>{}} divider />
+            <ListCell title="이력서 관리" trailing={<Icon name="chevronRight" size={20} />} onClick={()=>{}} />
+          </Card>
+        </div>
+        <div style={{ gridColumn: "1 / -1" }}>
+          <div className="lbl">Toast</div>
+          <div className="stack" style={{ alignItems: "flex-start" }}>
+            <Toast status="positive" action="보기">지원서가 제출되었어요</Toast>
+            <Toast status="negative">네트워크 오류가 발생했어요</Toast>
+          </div>
+        </div>
+      </React.Fragment>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script>
+</body>
+</html>

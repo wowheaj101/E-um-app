@@ -1,0 +1,59 @@
+<!-- @dsCard group="Components" viewport="700x320" name="Form Controls" subtitle="TextField · Checkbox · Radio · Switch" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  body { margin: 0; font-family: var(--font-sans); background: var(--background-normal); color: var(--label-normal); }
+  .wrap { padding: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px 36px; align-items: start; }
+  .col { display: flex; flex-direction: column; gap: 16px; }
+  .lbl { font-size: 11px; color: var(--label-alternative); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 2px; }
+  .stack { display: flex; flex-direction: column; gap: 12px; }
+  .rowx { display: flex; align-items: center; gap: 20px; }
+</style>
+</head>
+<body>
+<div class="wrap"><div id="root" style="display:contents"></div></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel">
+  const { TextField, Checkbox, Radio, Switch, Icon } = window.WantedDesignSystem_3ed5bb;
+  function Demo() {
+    const [exp, setExp] = React.useState("mid");
+    return (
+      <React.Fragment>
+        <div className="col">
+          <div className="lbl">TextField</div>
+          <TextField label="이메일" placeholder="name@example.com" />
+          <TextField placeholder="회사·직무 검색" leading={<Icon name="search" size={20} />} />
+          <TextField label="비밀번호" type="password" defaultValue="hunter22" error="8자 이상 입력해주세요" />
+        </div>
+        <div className="col">
+          <div className="lbl">Checkbox</div>
+          <div className="stack">
+            <Checkbox defaultChecked label="(필수) 이용약관 동의" />
+            <Checkbox label="(선택) 마케팅 수신 동의" />
+          </div>
+          <div className="lbl" style={{ marginTop: 6 }}>Radio · 경력</div>
+          <div className="stack">
+            {[["new","신입"],["mid","3~7년"],["sen","8년 이상"]].map(([k,v]) => (
+              <Radio key={k} label={v} value={k} checked={exp===k} onChange={setExp} />
+            ))}
+          </div>
+          <div className="lbl" style={{ marginTop: 6 }}>Switch</div>
+          <div className="rowx">
+            <Switch defaultChecked aria-label="채용 알림" />
+            <Switch aria-label="이메일 수신" />
+            <Switch disabled aria-label="비활성" />
+          </div>
+        </div>
+      </React.Fragment>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script>
+</body>
+</html>

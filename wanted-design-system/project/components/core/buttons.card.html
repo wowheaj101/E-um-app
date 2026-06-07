@@ -1,0 +1,61 @@
+<!-- @dsCard group="Components" viewport="700x300" name="Buttons" subtitle="Button variants · tones · sizes · IconButton" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  body { margin: 0; font-family: var(--font-sans); background: var(--background-normal); color: var(--label-normal); }
+  .wrap { padding: 28px; display: flex; flex-direction: column; gap: 20px; }
+  .row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .lbl { width: 64px; font-size: 11px; color: var(--label-alternative); letter-spacing: 0.02em; }
+  .group { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  hr { border: none; border-top: 1px solid var(--line-alternative); margin: 4px 0; }
+</style>
+</head>
+<body>
+<div class="wrap"><div id="root"></div></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel">
+  const { Button, IconButton, Icon } = window.WantedDesignSystem_3ed5bb;
+  function Demo() {
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+        <div className="row"><span className="lbl">solid</span><div className="group">
+          <Button tone="primary">지원하기</Button>
+          <Button tone="neutral">팔로우</Button>
+          <Button tone="negative">신고</Button>
+          <Button tone="primary" disabled>지원완료</Button>
+        </div></div>
+        <div className="row"><span className="lbl">weak</span><div className="group">
+          <Button variant="weak" tone="primary">관심 등록</Button>
+          <Button variant="weak" tone="neutral">더보기</Button>
+          <Button variant="weak" tone="negative">삭제</Button>
+        </div></div>
+        <div className="row"><span className="lbl">outline</span><div className="group">
+          <Button variant="outline" tone="neutral" leadingIcon={<Icon name="share" size={18} />}>공유</Button>
+          <Button variant="outline" tone="primary">이력서 첨부</Button>
+          <Button variant="text" tone="primary" trailingIcon={<Icon name="chevronRight" size={18} />}>전체보기</Button>
+        </div></div>
+        <hr />
+        <div className="row"><span className="lbl">sizes</span><div className="group">
+          <Button size="lg">Large</Button>
+          <Button size="md">Medium</Button>
+          <Button size="sm">Small</Button>
+        </div></div>
+        <div className="row"><span className="lbl">icon</span><div className="group">
+          <IconButton icon={<Icon name="bookmark" />} aria-label="저장" variant="outline" />
+          <IconButton icon={<Icon name="search" />} variant="solid" tone="primary" aria-label="검색" />
+          <IconButton icon={<Icon name="bell" />} aria-label="알림" />
+          <IconButton icon={<Icon name="squareMore" />} aria-label="더보기" />
+        </div></div>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script>
+</body>
+</html>

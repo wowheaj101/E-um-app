@@ -1,0 +1,32 @@
+<!-- @dsCard group="Colors" viewport="700x210" name="Status & Accent" subtitle="Semantic status hues + accent palette" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; font-family: var(--font-sans); background: var(--background-normal); color: var(--label-normal); }
+  .wrap { padding: 24px; }
+  
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .card{border-radius:12px;padding:14px;box-shadow:inset 0 0 0 1px var(--line-alternative);}
+  .swp{display:flex;gap:6px;margin-bottom:10px;}
+  .s{height:32px;flex:1;border-radius:7px;}
+  .t{font-size:12px;font-weight:600;} .v{font-size:11px;color:var(--label-alternative);margin-top:1px;}
+  .acc{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:14px;}
+  .acol{display:flex;flex-direction:column;align-items:center;gap:6px;}
+  .ad{width:100%;height:30px;border-radius:7px;} .al{font-size:10px;color:var(--label-alternative);}
+
+</style></head><body><div class="wrap">
+  <div class="grid">
+    <div class="card"><div class="swp"><div class="s" style="background:var(--status-positive-bg)"></div><div class="s" style="background:var(--status-positive)"></div></div><div class="t">positive</div><div class="v">green · #00BF40</div></div>
+    <div class="card"><div class="swp"><div class="s" style="background:var(--status-negative-bg)"></div><div class="s" style="background:var(--status-negative)"></div></div><div class="t">negative</div><div class="v">red · #FF4242</div></div>
+    <div class="card"><div class="swp"><div class="s" style="background:var(--status-cautionary-bg)"></div><div class="s" style="background:var(--status-cautionary)"></div></div><div class="t">cautionary</div><div class="v">orange · #FF9200</div></div>
+  </div>
+  <div class="acc">
+    <div class="acol"><div class="ad" style="background:var(--blue-50)"></div><div class="al">blue</div></div>
+    <div class="acol"><div class="ad" style="background:var(--violet-50)"></div><div class="al">violet</div></div>
+    <div class="acol"><div class="ad" style="background:var(--cyan-50)"></div><div class="al">cyan</div></div>
+    <div class="acol"><div class="ad" style="background:var(--green-50)"></div><div class="al">green</div></div>
+    <div class="acol"><div class="ad" style="background:var(--lime-50)"></div><div class="al">lime</div></div>
+    <div class="acol"><div class="ad" style="background:var(--orange-50)"></div><div class="al">orange</div></div>
+    <div class="acol"><div class="ad" style="background:var(--pink-50)"></div><div class="al">pink</div></div>
+  </div></div></body></html>

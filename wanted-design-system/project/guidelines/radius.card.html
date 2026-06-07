@@ -1,0 +1,18 @@
+<!-- @dsCard group="Spacing" viewport="700x190" name="Corner Radius" subtitle="Radius steps + size aliases" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; font-family: var(--font-sans); background: var(--background-normal); color: var(--label-normal); }
+  .wrap { padding: 26px 24px; }
+  
+  .grid{display:flex;gap:16px;flex-wrap:wrap;}
+  .col{display:flex;flex-direction:column;align-items:center;gap:8px;}
+  .box{width:72px;height:72px;background:var(--primary-tint);box-shadow:inset 0 0 0 1.5px var(--primary-normal);}
+  .t{font-size:11px;color:var(--label-alternative);font-weight:600;} .v{font-size:10px;color:var(--label-assistive);}
+
+</style></head><body><div class="wrap">
+  <div class="grid">
+    <div class="col"><div class="box" style="border-radius:6px"></div><span class="t">radius-6</span><span class="v">6px · badge</span></div><div class="col"><div class="box" style="border-radius:8px"></div><span class="t">radius-8</span><span class="v">8px · sm ctrl</span></div><div class="col"><div class="box" style="border-radius:12px"></div><span class="t">radius-12</span><span class="v">12px · control</span></div><div class="col"><div class="box" style="border-radius:16px"></div><span class="t">radius-16</span><span class="v">16px · card</span></div><div class="col"><div class="box" style="border-radius:20px"></div><span class="t">radius-20</span><span class="v">20px · sheet</span></div><div class="col"><div class="box" style="border-radius:9999px"></div><span class="t">full</span><span class="v">∞ · pill</span></div>
+  </div>
+</div></body></html>

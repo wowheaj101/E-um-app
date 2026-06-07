@@ -1,0 +1,22 @@
+<!-- @dsCard group="Spacing" viewport="700x200" name="Elevation" subtitle="Tight low-alpha shadows; borders first" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; font-family: var(--font-sans); background: var(--background-normal); color: var(--label-normal); }
+  .wrap { padding: 26px 24px; }
+  
+  body{background:var(--background-normal-alternative);}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .col{display:flex;flex-direction:column;align-items:center;gap:10px;}
+  .box{width:100%;height:72px;background:var(--background-normal);border-radius:14px;}
+  .t{font-size:11px;color:var(--label-alternative);font-weight:600;}
+
+</style></head><body><div class="wrap">
+  <div class="grid">
+    <div class="col"><div class="box" style="box-shadow:inset 0 0 0 1px var(--line-normal)"></div><span class="t">flat · border</span></div>
+    <div class="col"><div class="box" style="box-shadow:var(--shadow-card)"></div><span class="t">shadow-card</span></div>
+    <div class="col"><div class="box" style="box-shadow:var(--shadow-raised)"></div><span class="t">shadow-raised</span></div>
+    <div class="col"><div class="box" style="box-shadow:var(--shadow-popover)"></div><span class="t">shadow-popover</span></div>
+  </div>
+</div></body></html>

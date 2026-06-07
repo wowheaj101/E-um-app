@@ -1,0 +1,58 @@
+<!-- @dsCard group="Components" viewport="700x340" name="Icons" subtitle="24px currentColor glyph set" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  body { margin: 0; font-family: var(--font-sans); background: var(--background-normal); color: var(--label-normal); }
+  .wrap { padding: 28px 24px; }
+  .grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; }
+  .cell {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    padding: 14px 4px; border-radius: var(--radius-12);
+    color: var(--label-normal);
+    transition: background var(--duration-fast) var(--ease-standard);
+  }
+  .cell:hover { background: var(--fill-normal); }
+  .cell .lbl { font-size: 10px; letter-spacing: 0.02em; color: var(--label-alternative); text-align: center; }
+  .row { display: flex; gap: 20px; align-items: center; margin-top: 22px; }
+  .swatch { display: flex; align-items: center; gap: 8px; color: var(--label-alternative); font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="root"></div>
+</div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel">
+  const { Icon, ICON_NAMES } = window.WantedDesignSystem_3ed5bb;
+  function Demo() {
+    return (
+      <div>
+        <div className="grid">
+          {ICON_NAMES.map((n) => (
+            <div className="cell" key={n}>
+              <Icon name={n} size={24} />
+              <span className="lbl">{n}</span>
+            </div>
+          ))}
+        </div>
+        <div className="row">
+          <div className="swatch"><Icon name="bookmark" size={20} color="var(--primary-normal)" /> primary</div>
+          <div className="swatch"><Icon name="circleCheck" size={20} color="var(--status-positive)" /> positive</div>
+          <div className="swatch"><Icon name="triangleExclamation" size={20} color="var(--status-cautionary)" /> caution</div>
+          <div className="swatch"><Icon name="heart" size={28} color="var(--status-negative)" /> 28px</div>
+          <div className="swatch"><Icon name="search" size={16} /> 16px</div>
+        </div>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script>
+</body>
+</html>
