@@ -10,3 +10,11 @@ export const API_BASE_URL =
 
 /** 인증 토큰 보관 키 (Supabase access_token) */
 export const TOKEN_KEY = 'eum_access_token'
+
+/**
+ * Supabase Auth(GoTrue) 직접 호출용 — 프론트에서 access_token 발급.
+ * anon/publishable(공개) 키만 사용한다. service_role 키는 절대 넣지 말 것.
+ * USE_MOCK=false 일 때만 필요.
+ */
+export const SUPABASE_URL = (import.meta.env.VITE_SUPABASE_URL || '').replace(/\/$/, '')
+export const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || ''

@@ -1,5 +1,6 @@
 export { assetService } from './assetService'
 export { authService } from './authService'
+export type { SignupPayload, SignupResult } from './authService'
 export { helperService } from './helperService'
 export { legacyService } from './legacyService'
 export { ApiRequestError } from './http'

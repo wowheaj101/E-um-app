@@ -5,6 +5,7 @@
  */
 import { defineStore } from 'pinia'
 import { authService } from '@/services'
+import type { SignupPayload } from '@/services'
 import { TOKEN_KEY } from '@/services/config'
 import type { Role, User } from '@/types'
 
@@ -39,14 +40,50 @@ export const useAuthStore = defineStore('auth', {
       this.mode = mode
       applyMode(mode)
     },
-    /** mock 데모 로그인 (role 선택). 실연동 시 Supabase 세션으로 대체 */
+    /** 회원가입. 가입 즉시 로그인되면 user 설정, 메일 확인 필요면 needsConfirm=true */
+    async signup(payload: SignupPayload): Promise<{ needsConfirm: boolean }> {
+      this.loading = true
+      try {
+        const { user, needsConfirm } = await authService.signup(payload)
+        if (user) {
+          this.user = user
+          this.setMode(user.role === 'helper' ? 'helper' : 'senior')
+        }
+        return { needsConfirm }
+      } finally {
+        this.loading = false
+      }
+    },
+    /** 이메일/비밀번호 로그인 (real: Supabase, mock: 이메일로 role 추론) */
+    async login(email: string, password: string) {
+      this.loading = true
+      try {
+        this.user = await authService.login(email, password)
+        this.setMode(this.user.role === 'helper' ? 'helper' : 'senior')
+      } finally {
+        this.loading = false
+      }
+    },
+    /** mock 데모 로그인 (role 선택). 로그인 화면 없이 둘러보기용 */
     async loginAs(role: Role) {
       this.loading = true
       try {
         this.user = await authService.mockLogin(role)
-        // mock 토큰 — 실연동 시 Supabase access_token 으로 교체
         localStorage.setItem(TOKEN_KEY, `mock-${role}-token`)
         this.setMode(role === 'helper' ? 'helper' : 'senior')
+      } finally {
+        this.loading = false
+      }
+    },
+    /** 부팅 시 저장된 토큰으로 프로필 복원. 토큰이 만료/무효면 폐기. */
+    async restore() {
+      if (!localStorage.getItem(TOKEN_KEY)) return
+      this.loading = true
+      try {
+        this.user = await authService.me()
+        this.setMode(this.user.role === 'helper' ? 'helper' : 'senior')
+      } catch {
+        this.logout()
       } finally {
         this.loading = false
       }
