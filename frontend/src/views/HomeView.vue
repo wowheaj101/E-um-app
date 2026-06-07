@@ -72,9 +72,10 @@ onMounted(() => assetStore.fetch())
         <span class="action__hint wt-label2">{{ count }}건 한눈에</span>
       </button>
     </section>
-    <button class="action action--wide" disabled>
+    <button class="action action--wide" @click="router.push('/ocr')">
       <AppIcon name="bookmark" :size="22" />
-      <span class="wt-body1">사진으로 추가 · 직접 입력 (준비 중)</span>
+      <span class="wt-body1">사진으로 추가 (통장·증서 촬영)</span>
+      <AppIcon name="chevronRight" :size="18" />
     </button>
 
     <!-- 최근 자산 -->
@@ -103,14 +104,24 @@ onMounted(() => assetStore.fetch())
     </section>
 
     <!-- 가족 연결 -->
-    <section class="family">
+    <button class="family" @click="router.push('/helper')">
       <span class="family__icon"><AppIcon name="person" :size="22" /></span>
       <span class="family__text">
         <span class="wt-body1 family__title">가족 연결</span>
         <span class="wt-label2 family__sub">김민준 님이 자산을 함께 지켜봐요 (읽기 전용)</span>
       </span>
       <AppIcon name="chevronRight" :size="18" />
-    </section>
+    </button>
+
+    <!-- 디지털 유산 -->
+    <button class="family family--legacy" @click="router.push('/legacy')">
+      <span class="family__icon family__icon--legacy"><AppIcon name="heart" :size="22" /></span>
+      <span class="family__text">
+        <span class="wt-body1 family__title">디지털 유산</span>
+        <span class="wt-label2 family__sub">남기고 싶은 계정·정보를 안전하게</span>
+      </span>
+      <AppIcon name="chevronRight" :size="18" />
+    </button>
   </main>
 </template>
 
@@ -251,13 +262,17 @@ onMounted(() => assetStore.fetch())
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
+  gap: 10px;
   min-height: 0;
   padding: 16px;
-  color: var(--label-alternative);
+  color: var(--label-normal);
   background: var(--background-normal);
-  cursor: not-allowed;
+}
+.action--wide > span {
+  flex: 1;
+}
+.action--wide :deep(svg):first-child {
+  color: var(--accent-warm-strong);
 }
 
 /* block */
@@ -332,10 +347,19 @@ onMounted(() => assetStore.fetch())
   display: flex;
   align-items: center;
   gap: 12px;
+  width: 100%;
   padding: 16px;
+  border: none;
   border-radius: var(--radius-16);
   background: var(--accent-warm-tint);
   color: var(--label-normal);
+  text-align: left;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+.family:active {
+  transform: scale(0.99);
 }
 .family__icon {
   display: inline-flex;
@@ -357,5 +381,11 @@ onMounted(() => assetStore.fetch())
 }
 .family__sub {
   color: var(--label-alternative);
+}
+.family--legacy {
+  background: var(--accent-background-violet);
+}
+.family__icon--legacy {
+  color: var(--accent-foreground-violet);
 }
 </style>

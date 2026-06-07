@@ -42,3 +42,13 @@ const SOURCE_LABEL: Record<string, string> = {
 export function sourceLabel(source: string): string {
   return SOURCE_LABEL[source] ?? source
 }
+
+const LEGACY_CATEGORY_LABEL: Record<string, string> = {
+  sns: 'SNS·메신저',
+  crypto: '가상자산·지갑',
+  subscription: '구독 서비스',
+}
+
+export function legacyCategoryLabel(category: string): string {
+  return LEGACY_CATEGORY_LABEL[category] ?? category
+}

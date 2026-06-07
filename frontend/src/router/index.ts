@@ -19,7 +19,24 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/VoiceInputView.vue'),
     meta: { title: '음성으로 추가' },
   },
-  // TODO: /ocr, /helper, /legacy — 후속 화면
+  {
+    path: '/ocr',
+    name: 'ocr',
+    component: () => import('@/views/OcrInputView.vue'),
+    meta: { title: '사진으로 추가' },
+  },
+  {
+    path: '/helper',
+    name: 'helper',
+    component: () => import('@/views/HelperDashboardView.vue'),
+    meta: { title: '가족에게 보이는 화면' },
+  },
+  {
+    path: '/legacy',
+    name: 'legacy',
+    component: () => import('@/views/LegacyNoteView.vue'),
+    meta: { title: '디지털 유산' },
+  },
   { path: '/:pathMatch(.*)*', redirect: '/' },
 ]
 
