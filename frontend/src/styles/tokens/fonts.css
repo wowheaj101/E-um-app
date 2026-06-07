@@ -1,0 +1,7 @@
+/* ============================================================
+   E-UM — Webfonts
+   Pretendard (KR) — 한국 전용 서비스라 JP 변형 대신 KR 사용.
+   jsDelivr dynamic-subset CDN: 페이지가 쓰는 글자만 내려받음.
+   ============================================================ */
+
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
