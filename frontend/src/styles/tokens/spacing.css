@@ -1,0 +1,44 @@
+/* ============================================================
+   E-UM — Spacing, Radius, Elevation & Layout  (Wanted DS 그대로 이식)
+   Base unit = 4px. 구조는 그림자보다 hairline 보더·translucent fill 우선.
+   ============================================================ */
+
+:root {
+  /* Spacing scale (4px base) */
+  --space-2: 2px;   --space-4: 4px;   --space-6: 6px;   --space-8: 8px;
+  --space-10: 10px; --space-12: 12px; --space-16: 16px; --space-20: 20px;
+  --space-24: 24px; --space-28: 28px; --space-32: 32px; --space-40: 40px;
+  --space-48: 48px; --space-56: 56px; --space-64: 64px;
+
+  /* Corner radius */
+  --radius-4: 4px;   --radius-6: 6px;   --radius-8: 8px;   --radius-10: 10px;
+  --radius-12: 12px; --radius-14: 14px; --radius-16: 16px; --radius-20: 20px;
+  --radius-24: 24px; --radius-full: 9999px;
+
+  /* Semantic radius aliases */
+  --radius-control: 12px;   /* buttons, inputs at default size */
+  --radius-card: 16px;      /* content cards */
+  --radius-sheet: 20px;     /* modals, bottom sheets */
+
+  /* Elevation — tight, cool, low-alpha */
+  --shadow-card: 0 1px 3px rgba(23, 23, 25, 0.06), 0 1px 2px rgba(23, 23, 25, 0.04);
+  --shadow-raised: 0 4px 12px rgba(23, 23, 25, 0.08), 0 2px 4px rgba(23, 23, 25, 0.04);
+  --shadow-popover: 0 8px 24px rgba(23, 23, 25, 0.12), 0 2px 8px rgba(23, 23, 25, 0.08);
+  --shadow-modal: 0 16px 48px rgba(0, 0, 0, 0.16), 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  /* Layout widths */
+  --layout-width-min: 320px;
+  --layout-width-content: 400px;
+  --layout-width-max: 1060px;
+
+  /* Horizontal page gutter (mobile-first) */
+  --gutter-mobile: 20px;
+  --gutter-desktop: 24px;
+
+  /* Motion */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 320ms;
+}

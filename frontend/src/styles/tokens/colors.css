@@ -1,0 +1,165 @@
+/* ============================================================
+   E-UM — Color  (Wanted Design System 기반 + E-UM 브랜드 override)
+   1) 원자 팔레트(raw ramps)  2) 시맨틱 토큰(intent alias)
+   UI 는 항상 시맨틱 토큰으로 작성한다.
+
+   E-UM 변경점:
+   - --primary-* : Wanted Blue → E-UM Navy(#1A2B4C, trust navy) 램프
+   - --accent-warm-* : 로고의 황색(#F8B820) — 연결/강조용 보조 액센트
+   중성(cool-grey)·status(초록/빨강/주황)·content accent 는 DS 유지.
+   ============================================================ */
+
+:root {
+  /* ---- Common ---- */
+  --common-100: #ffffff;
+  --common-0: #000000;
+
+  /* ---- Navy (E-UM primary) — 로고 #182848 / 지정 #1A2B4C 기준 램프 ---- */
+  --navy-99: #f4f6fa; --navy-95: #e9edf3; --navy-90: #c9d2e0; --navy-80: #97a6c0;
+  --navy-70: #6b7e9f; --navy-60: #455a7c; --navy-50: #2a3f63; --navy-45: #213352;
+  --navy-40: #1a2b4c; --navy-35: #14223d; --navy-30: #0e1829; --navy-20: #0a1120;
+
+  /* ---- Amber (E-UM accent) — 로고 #F8B820 ---- */
+  --amber-95: #fef4d9; --amber-60: #ffc94d; --amber-50: #f8b820; --amber-40: #e0a000;
+  --amber-30: #b87e00;
+
+  /* ---- Cool Neutral (UI greys) — DS 유지 ---- */
+  --cool-neutral-99: #f7f7f8; --cool-neutral-98: #f4f4f5; --cool-neutral-97: #eaebec;
+  --cool-neutral-96: #e1e2e4; --cool-neutral-95: #dbdcdf; --cool-neutral-90: #c2c4c8;
+  --cool-neutral-80: #aeb0b6; --cool-neutral-70: #989ba2; --cool-neutral-60: #878a93;
+  --cool-neutral-50: #70737c; --cool-neutral-40: #5a5c63; --cool-neutral-30: #46474c;
+  --cool-neutral-25: #37383c; --cool-neutral-22: #2e2f33; --cool-neutral-17: #212225;
+  --cool-neutral-15: #1b1c1e; --cool-neutral-10: #171719; --cool-neutral-7: #141415;
+  --cool-neutral-5: #0f0f10;
+
+  /* ---- Status hues — DS 유지 ---- */
+  --green-99: #f2fff6; --green-95: #d9ffe6; --green-60: #1ed45a; --green-50: #00bf40;
+  --green-40: #009632; --green-30: #006e25;
+  --red-99: #fffafa; --red-95: #feecec; --red-60: #ff6363; --red-50: #ff4242;
+  --red-40: #e52222; --red-30: #b00c0c;
+  --orange-99: #fffcf7; --orange-95: #fef4e6; --orange-60: #ffa938; --orange-50: #ff9200;
+  --orange-39: #d17600;
+
+  /* ---- Accent hues (content badges, charts) — DS 유지 ---- */
+  --violet-95: #f0ecfe; --violet-60: #7d5ef7; --violet-50: #6541f2; --violet-45: #5b37ed;
+  --cyan-95: #defaff; --cyan-50: #00bdde; --cyan-40: #0098b2;
+  --pink-95: #feecfb; --pink-50: #f553da; --pink-46: #e846cd;
+
+  /* ================= SEMANTIC — LIGHT ================= */
+
+  /* Primary (E-UM Navy) */
+  --primary-normal: var(--navy-40);   /* #1A2B4C — 마스터브랜드 navy */
+  --primary-strong: var(--navy-35);   /* hover */
+  --primary-heavy: var(--navy-30);    /* press */
+  --primary-tint: var(--navy-95);     /* weak 버튼·선택 배경 */
+
+  /* Accent (warm amber) */
+  --accent-warm: var(--amber-50);
+  --accent-warm-strong: var(--amber-40);
+  --accent-warm-tint: var(--amber-95);
+
+  /* Label / text */
+  --label-strong: var(--common-0);
+  --label-normal: #171717;
+  --label-neutral: rgba(46, 47, 51, 0.88);
+  --label-alternative: rgba(55, 56, 60, 0.61);
+  --label-assistive: rgba(55, 56, 60, 0.28);
+  --label-disable: rgba(55, 56, 60, 0.16);
+
+  /* Background / surface */
+  --background-normal: #ffffff;
+  --background-normal-alternative: var(--cool-neutral-99);
+  --background-elevated: #ffffff;
+  --background-elevated-alternative: var(--cool-neutral-99);
+  --background-dimmer: rgba(23, 23, 25, 0.52);
+
+  /* Line / divider */
+  --line-normal: rgba(112, 115, 124, 0.22);
+  --line-neutral: rgba(112, 115, 124, 0.16);
+  --line-alternative: rgba(112, 115, 124, 0.08);
+  --line-strong: rgba(112, 115, 124, 0.52);
+  --line-solid: var(--cool-neutral-96);
+
+  /* Fill (translucent grey surfaces) */
+  --fill-alternative: rgba(112, 115, 124, 0.05);
+  --fill-normal: rgba(112, 115, 124, 0.08);
+  --fill-strong: rgba(112, 115, 124, 0.16);
+
+  /* Interaction */
+  --interaction-inactive: var(--cool-neutral-70);
+  --interaction-disable: var(--cool-neutral-98);
+
+  /* Status */
+  --status-positive: var(--green-50);
+  --status-negative: var(--red-50);
+  --status-cautionary: var(--orange-50);
+  --status-positive-bg: var(--green-95);
+  --status-negative-bg: var(--red-95);
+  --status-cautionary-bg: var(--orange-95);
+
+  /* Inverse (tooltips, toasts) */
+  --inverse-background: var(--cool-neutral-15);
+  --inverse-label: var(--cool-neutral-99);
+  --inverse-primary: var(--navy-60);
+
+  /* Static (never flips with theme) */
+  --static-white: #ffffff;
+  --static-black: #000000;
+
+  /* Accent foreground / background pairs (content badges) */
+  --accent-foreground-navy: var(--navy-45);     --accent-background-navy: var(--navy-95);
+  --accent-foreground-amber: var(--amber-30);    --accent-background-amber: var(--amber-95);
+  --accent-foreground-violet: var(--violet-45); --accent-background-violet: var(--violet-95);
+  --accent-foreground-green: var(--green-40);   --accent-background-green: var(--green-95);
+  --accent-foreground-red: var(--red-40);       --accent-background-red: var(--red-95);
+  --accent-foreground-orange: var(--orange-39); --accent-background-orange: var(--orange-95);
+  --accent-foreground-cyan: var(--cyan-40);     --accent-background-cyan: var(--cyan-95);
+  --accent-foreground-pink: var(--pink-46);     --accent-background-pink: var(--pink-95);
+}
+
+/* ================= SEMANTIC — DARK (보존, MVP 미사용) ================= */
+:root[data-theme='dark'],
+.dark {
+  --primary-normal: var(--navy-60);
+  --primary-strong: var(--navy-50);
+  --primary-heavy: var(--navy-45);
+  --primary-tint: rgba(26, 43, 76, 0.24);
+
+  --accent-warm: var(--amber-60);
+  --accent-warm-strong: var(--amber-50);
+  --accent-warm-tint: rgba(248, 184, 32, 0.16);
+
+  --label-strong: var(--common-100);
+  --label-normal: #f7f7f7;
+  --label-neutral: rgba(194, 196, 200, 0.88);
+  --label-alternative: rgba(174, 176, 182, 0.61);
+  --label-assistive: rgba(174, 176, 182, 0.28);
+  --label-disable: rgba(152, 155, 162, 0.16);
+
+  --background-normal: #1b1c1e;
+  --background-normal-alternative: var(--cool-neutral-5);
+  --background-elevated: var(--cool-neutral-17);
+  --background-elevated-alternative: var(--cool-neutral-7);
+  --background-dimmer: rgba(23, 23, 25, 0.74);
+
+  --line-normal: rgba(112, 115, 124, 0.32);
+  --line-neutral: rgba(112, 115, 124, 0.28);
+  --line-alternative: rgba(112, 115, 124, 0.22);
+  --line-strong: rgba(194, 196, 200, 0.52);
+  --line-solid: var(--cool-neutral-25);
+
+  --fill-alternative: rgba(112, 115, 124, 0.12);
+  --fill-normal: rgba(112, 115, 124, 0.22);
+  --fill-strong: rgba(112, 115, 124, 0.28);
+
+  --interaction-inactive: var(--cool-neutral-40);
+  --interaction-disable: var(--cool-neutral-22);
+
+  --status-positive: var(--green-60);
+  --status-negative: var(--red-60);
+  --status-cautionary: var(--orange-60);
+
+  --inverse-background: var(--common-100);
+  --inverse-label: var(--cool-neutral-10);
+  --inverse-primary: var(--navy-60);
+}

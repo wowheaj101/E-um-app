@@ -1,0 +1,86 @@
+/* ============================================================
+   E-UM — 전역 스타일 진입점
+   토큰 → Tailwind 레이어 → base 순. (CSS @import 는 최상단 유지)
+   ============================================================ */
+@import './tokens/fonts.css';
+@import './tokens/colors.css';
+@import './tokens/typography.css';
+@import './tokens/spacing.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background: var(--background-normal-alternative);
+    color: var(--label-normal);
+    font-family: var(--font-sans);
+    font-size: var(--body1-size);
+    line-height: var(--body1-line);
+    letter-spacing: var(--body1-tracking);
+    font-weight: var(--weight-medium);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  #app {
+    min-height: 100dvh;
+  }
+
+  ::selection {
+    background: var(--primary-tint);
+    color: var(--primary-heavy);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--primary-normal);
+    outline-offset: 2px;
+  }
+}
+
+/* ============================================================
+   시니어 모드 — 접근성 확대
+   [data-mode="senior"] 에서 타이포 토큰을 키우면 .wt-* 와
+   var() 참조 컴포넌트가 모두 자동 확대된다 (명세서 §4.3:
+   본문 18px+ / 제목 24px+ / 터치 44px+).
+   조력자 모드([data-mode="helper"])는 DS 표준값을 그대로 쓴다.
+   ============================================================ */
+:root[data-mode='senior'] {
+  --title2-size: 30px;    --title2-line: 40px;
+  --title3-size: 26px;    --title3-line: 34px;
+  --heading1-size: 24px;  --heading1-line: 32px;
+  --heading2-size: 22px;  --heading2-line: 30px;
+  --headline1-size: 20px; --headline1-line: 28px;
+  --headline2-size: 19px; --headline2-line: 26px;
+  --body1-size: 18px;     --body1-line: 28px;     --body1r-line: 30px;
+  --body2-size: 17px;     --body2-line: 26px;     --body2r-line: 28px;
+  --label1-size: 16px;    --label1-line: 24px;    --label1r-line: 24px;
+  --label2-size: 15px;    --label2-line: 22px;
+  --caption1-size: 13px;  --caption1-line: 18px;
+}
+
+/* 시니어 모드 터치 타깃 보강 (최소 44~52px) */
+:root[data-mode='senior'] .btn {
+  min-height: 52px;
+}
+:root[data-mode='senior'] .btn--sm {
+  min-height: 44px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
