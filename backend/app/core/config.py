@@ -41,5 +41,10 @@ class Settings(BaseSettings):
     def supabase_auth_url(self) -> str | None:
         return f"{self.supabase_url.rstrip('/')}/auth/v1" if self.supabase_url else None
 
+    @property
+    def supabase_jwks_url(self) -> str | None:
+        """비대칭(ES256/RS256) access token 검증용 JWKS 엔드포인트."""
+        return f"{self.supabase_auth_url}/.well-known/jwks.json" if self.supabase_url else None
+
 
 settings = Settings()
