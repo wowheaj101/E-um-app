@@ -79,8 +79,14 @@ router.beforeEach((to) => {
 const CHUNK_RELOAD_KEY = 'eum_chunk_reloaded'
 router.onError((error, to) => {
   const message = error instanceof Error ? error.message : String(error)
+  // 브라우저별 청크 로드 실패 메시지를 폭넓게 매칭한다.
+  // - Chrome:  "Failed to fetch dynamically imported module: ..."
+  // - Firefox: "error loading dynamically imported module: ..."
+  // - Safari:  "Importing a module script failed."
+  // - 재배포로 옛 청크가 사라지면 catch-all rewrite 가 text/html 을 돌려줘
+  //   "Failed to load module script: Expected a JavaScript module ... MIME type" 가 뜬다.
   const isChunkError =
-    /dynamically imported module|Importing a module script failed|ChunkLoadError|Failed to fetch/i.test(
+    /dynamically imported module|module script|Importing a module|ChunkLoadError|Failed to fetch|MIME type/i.test(
       message,
     )
   if (!isChunkError) return

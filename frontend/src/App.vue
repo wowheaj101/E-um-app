@@ -5,11 +5,14 @@ import { RouterView } from 'vue-router'
 
 <template>
   <div class="app-shell">
-    <RouterView v-slot="{ Component }">
-      <transition name="fade" mode="out-in">
-        <component :is="Component" />
-      </transition>
-    </RouterView>
+    <!--
+      페이지 전환 애니메이션(<transition mode="out-in">)은 제거했다.
+      lazy(async) 라우트로 처음 이동할 때 청크를 네트워크로 받는 비동기 지연과
+      out-in 시퀀스가 어긋나 enter 트랜지션이 .fade-enter-from(opacity:0) 상태로
+      굳어, 컴포넌트는 마운트됐지만 화면이 투명(=빈 화면)으로 남고 새로고침해야
+      보이던 버그의 원인이었다. 시니어 대상 앱이라 모션 제거가 UX상 오히려 낫다.
+    -->
+    <RouterView />
   </div>
 </template>
 
@@ -24,14 +27,5 @@ import { RouterView } from 'vue-router'
   box-shadow: 0 0 0 1px var(--line-alternative);
   display: flex;
   flex-direction: column;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity var(--duration-base) var(--ease-standard);
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
 }
 </style>
