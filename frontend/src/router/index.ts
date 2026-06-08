@@ -73,4 +73,27 @@ router.beforeEach((to) => {
   return true
 })
 
+// 재배포 후 브라우저에 남은 옛 index.html 이 사라진 lazy 청크를 import 하려다
+// 실패하면(= 빈 화면) 자동으로 한 번 새로고침해 최신 빌드를 받는다.
+// 같은 경로에서 한 번만 시도해 무한 새로고침을 방지한다.
+const CHUNK_RELOAD_KEY = 'eum_chunk_reloaded'
+router.onError((error, to) => {
+  const message = error instanceof Error ? error.message : String(error)
+  const isChunkError =
+    /dynamically imported module|Importing a module script failed|ChunkLoadError|Failed to fetch/i.test(
+      message,
+    )
+  if (!isChunkError) return
+  const target = to?.fullPath || window.location.pathname
+  if (sessionStorage.getItem(CHUNK_RELOAD_KEY) === target) return // 이미 한 번 시도함
+  sessionStorage.setItem(CHUNK_RELOAD_KEY, target)
+  window.location.assign(target)
+})
+router.afterEach((to) => {
+  // 정상 진입에 성공하면 플래그 해제 → 다음 배포 때 다시 새로고침할 수 있게.
+  if (sessionStorage.getItem(CHUNK_RELOAD_KEY) === to.fullPath) {
+    sessionStorage.removeItem(CHUNK_RELOAD_KEY)
+  }
+})
+
 export default router
